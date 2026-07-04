@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --coral: #E8714C;
+  --teal: #2FA39A;
+  --ink: #2B2622;
+  --paper: #FBF7EF;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  background: #FBF7EF;
+  font-family: var(--font-jakarta), -apple-system, BlinkMacSystemFont, sans-serif;
+  color: #2B2622;
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #E6DCC9; border-radius: 3px; }
+
+/* Range input accent */
+input[type='range'] { accent-color: #E8714C; }
+
+/* Checkbox */
+input[type='checkbox'] { accent-color: #2FA39A; width: 16px; height: 16px; cursor: pointer; }
+
+/* Textarea and input base */
+textarea, input[type='text'], input[type='number'], input[type='date'], input[type='email'], select {
+  outline: none;
+  background: #FBF9F4;
+}
+
+textarea:focus, input[type='text']:focus, input[type='number']:focus, input[type='date']:focus, input[type='email']:focus, select:focus {
+  border-color: #E8714C !important;
+}
+
+@layer utilities {
+  .font-display {
+    font-family: 'Bricolage Grotesque', sans-serif;
+  }
+
+  .animate-bora-fade {
+    animation: boraFade .4s ease both;
+  }
+
+  .animate-bora-pop {
+    animation: boraPop .5s cubic-bezier(.2,.8,.2,1) both;
+  }
+
+  .animate-bora-stamp {
+    animation: boraStamp .55s cubic-bezier(.3,1.4,.5,1) both;
+  }
+}

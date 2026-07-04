@@ -1,0 +1,32 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/joao_/Downloads/**)",
+      "Bash(powershell -command \"Expand-Archive -Path 'Organizador de Viagens Interativo.zip' -DestinationPath 'bora_design_extracted' -Force\")",
+      "Bash(unzip -l \"Organizador de Viagens Interativo.zip\")",
+      "Bash(unzip -o \"Organizador de Viagens Interativo.zip\" -d \"bora_design_extracted\")",
+      "Bash(npm --version)",
+      "Bash(npx create-next-app@latest . --typescript --tailwind --eslint --app --no-src-dir --import-alias \"@/*\" --yes)",
+      "Bash(npm install *)",
+      "Bash(npx tsc *)",
+      "Bash(NEXT_PUBLIC_SUPABASE_URL=https://placeholder.supabase.co NEXT_PUBLIC_SUPABASE_ANON_KEY=placeholder npm run build)",
+      "Bash(xargs sed -i \"s/fontFamily: 'Bricolage Grotesque, sans-serif'/fontFamily: 'var\\(--font-bricolage\\), sans-serif'/g\")",
+      "Bash(cd \"/c/Users/joao_/OneDrive/Documentos/INDIVIDUAL-PROJECTS/Bora\" && npx tsc --noEmit 2>&1 | head -50)",
+      "Read(//c/Users/joao_/OneDrive/Documentos/INDIVIDUAL-PROJECTS/Bora/**)",
+      "Bash(cd \"/c/Users/joao_/OneDrive/Documentos/INDIVIDUAL-PROJECTS/Bora\" && npx tsc --noEmit 2>&1 | head -30)",
+      "Bash(node -e \"console.log\\(require\\('./node_modules/maplibre-gl/package.json'\\).version\\)\")",
+      "WebSearch",
+      "Bash(cd \"/c/Users/joao_/OneDrive/Documentos/INDIVIDUAL-PROJECTS/Bora\" && find . -maxdepth 3 -not -path '*/node_modules/*' -not -path '*/.next/*' -not -path '*/.git/*' | sort)",
+      "Bash(cd \"/c/Users/joao_/OneDrive/Documentos/INDIVIDUAL-PROJECTS/Bora\" && find app -type f | sort)",
+      "Bash(npm audit *)",
+      "Bash(cat .claude/settings.local.json)",
+      "Bash(ls .claude)",
+      "Bash(rm components/screens/LeafletMapInner.tsx types/react-simple-maps.d.ts)",
+      "Bash(rmdir types *)",
+      "Bash(npm uninstall *)",
+      "Bash(cd \"/c/Users/joao_/OneDrive/Documentos/INDIVIDUAL-PROJECTS/Bora\" && NEXT_PUBLIC_SUPABASE_URL=https://placeholder.supabase.co NEXT_PUBLIC_SUPABASE_ANON_KEY=placeholder npm run build 2>&1 | tail -20)",
+      "Bash(git init *)",
+      "Bash(git add *)"
+    ]
+  }
+}
