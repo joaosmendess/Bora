@@ -105,6 +105,8 @@ interface AppContextValue extends AppState {
   createSpace: (name: string, color: string) => Promise<Space | null>
   joinSpace: (codeOrLink: string) => Promise<boolean>
   switchSpace: (space: Space) => void
+  deleteSpace: (spaceId: string) => Promise<boolean>
+  leaveSpace: (spaceId: string) => Promise<boolean>
   signOut: () => Promise<void>
 }
 
@@ -332,6 +334,32 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     loadSpaceDestinations(space.id)
   }, [loadSpaceDestinations])
 
+  const deleteSpace = useCallback(async (spaceId: string): Promise<boolean> => {
+    const { error } = await supabase.from('spaces').delete().eq('id', spaceId)
+    if (error) { showToast('Não foi possível excluir o grupo.'); return false }
+    const remaining = state.spaces.filter(s => s.id !== spaceId)
+    dispatch({ type: 'SET_SPACES', payload: remaining })
+    const fallback = remaining.find(s => s.is_personal) || remaining[0] || null
+    dispatch({ type: 'SET_CURRENT_SPACE', payload: fallback })
+    if (fallback) await loadSpaceDestinations(fallback.id)
+    else dispatch({ type: 'SET_DESTINATIONS', payload: [] })
+    return true
+  }, [state.spaces, showToast, loadSpaceDestinations])
+
+  const leaveSpace = useCallback(async (spaceId: string): Promise<boolean> => {
+    if (!state.user) return false
+    const { error } = await supabase.from('space_members')
+      .delete().eq('space_id', spaceId).eq('profile_id', state.user.id)
+    if (error) { showToast('Não foi possível sair do grupo.'); return false }
+    const remaining = state.spaces.filter(s => s.id !== spaceId)
+    dispatch({ type: 'SET_SPACES', payload: remaining })
+    const fallback = remaining.find(s => s.is_personal) || remaining[0] || null
+    dispatch({ type: 'SET_CURRENT_SPACE', payload: fallback })
+    if (fallback) await loadSpaceDestinations(fallback.id)
+    else dispatch({ type: 'SET_DESTINATIONS', payload: [] })
+    return true
+  }, [state.user, state.spaces, showToast, loadSpaceDestinations])
+
   const signOut = useCallback(async () => {
     await supabase.auth.signOut()
   }, [])
@@ -356,6 +384,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       createSpace,
       joinSpace,
       switchSpace,
+      deleteSpace,
+      leaveSpace,
       signOut,
     }}>
       {children}

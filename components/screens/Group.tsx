@@ -2,11 +2,14 @@
 
 import { useState } from 'react'
 import { useApp } from '@/contexts/AppContext'
-import { Link2, Copy, Check, LogOut, Users } from 'lucide-react'
+import { Link2, Copy, Check, LogOut, Users, Trash2, DoorOpen } from 'lucide-react'
 
 export default function Group() {
-  const { currentSpace, user, showToast, signOut, navigate } = useApp()
+  const { currentSpace, user, showToast, signOut, navigate, deleteSpace, leaveSpace } = useApp()
   const [copied, setCopied] = useState(false)
+  const [confirmDelete, setConfirmDelete] = useState(false)
+  const [confirmLeave, setConfirmLeave] = useState(false)
+  const [busy, setBusy] = useState(false)
 
   if (!currentSpace) {
     return (
@@ -30,6 +33,8 @@ export default function Group() {
 
   const inviteLink = `${typeof window !== 'undefined' ? window.location.origin : 'https://bora.app'}/entrar/${currentSpace.invite_code}`
   const members = currentSpace.members || []
+  const isOwner = currentSpace.owner_id === user?.id
+  const isPersonal = currentSpace.is_personal
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(inviteLink)
@@ -157,6 +162,121 @@ export default function Group() {
           </div>
         ))}
       </div>
+
+      {/* Group actions: delete (owner) or leave (member) */}
+      {!isPersonal && (
+        <div style={{ marginBottom: 12 }}>
+          {isOwner ? (
+            confirmDelete ? (
+              <div style={{ background: '#FFF4F2', border: '1px solid #FCCBC0', borderRadius: 14, padding: '16px 18px' }}>
+                <p style={{ fontSize: 14, fontWeight: 600, color: '#2B2622', marginBottom: 4 }}>
+                  Excluir &quot;{currentSpace.name}&quot;?
+                </p>
+                <p style={{ fontSize: 13, color: '#8A8178', marginBottom: 14 }}>
+                  Todos os destinos e dados do grupo serão apagados permanentemente.
+                </p>
+                <div style={{ display: 'flex', gap: 8 }}>
+                  <button
+                    disabled={busy}
+                    onClick={async () => {
+                      setBusy(true)
+                      const ok = await deleteSpace(currentSpace.id)
+                      if (ok) { showToast('Grupo excluído.'); navigate('dashboard') }
+                      setBusy(false)
+                      setConfirmDelete(false)
+                    }}
+                    style={{
+                      flex: 1, padding: '10px 0', borderRadius: 10, border: 'none',
+                      background: '#E8714C', color: '#fff', fontSize: 14, fontWeight: 700,
+                      cursor: busy ? 'not-allowed' : 'pointer', opacity: busy ? .6 : 1,
+                    }}
+                  >
+                    {busy ? 'Excluindo...' : 'Sim, excluir'}
+                  </button>
+                  <button
+                    onClick={() => setConfirmDelete(false)}
+                    style={{
+                      padding: '10px 18px', borderRadius: 10,
+                      border: '1.5px solid #EFE6D7', background: '#fff',
+                      color: '#8A8178', fontSize: 14, fontWeight: 600, cursor: 'pointer',
+                    }}
+                  >
+                    Cancelar
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <button
+                onClick={() => setConfirmDelete(true)}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: 8,
+                  background: 'none', border: '1.5px solid #FCCBC0', borderRadius: 12,
+                  padding: '12px 16px', cursor: 'pointer',
+                  fontSize: 14, fontWeight: 600, color: '#E8714C',
+                  width: '100%', justifyContent: 'center', transition: 'all .15s',
+                }}
+              >
+                <Trash2 size={15} />
+                Excluir grupo
+              </button>
+            )
+          ) : (
+            confirmLeave ? (
+              <div style={{ background: '#FBF7EF', border: '1px solid #EFE6D7', borderRadius: 14, padding: '16px 18px' }}>
+                <p style={{ fontSize: 14, fontWeight: 600, color: '#2B2622', marginBottom: 4 }}>
+                  Sair de &quot;{currentSpace.name}&quot;?
+                </p>
+                <p style={{ fontSize: 13, color: '#8A8178', marginBottom: 14 }}>
+                  Você perderá o acesso aos destinos deste grupo.
+                </p>
+                <div style={{ display: 'flex', gap: 8 }}>
+                  <button
+                    disabled={busy}
+                    onClick={async () => {
+                      setBusy(true)
+                      const ok = await leaveSpace(currentSpace.id)
+                      if (ok) { showToast('Você saiu do grupo.'); navigate('dashboard') }
+                      setBusy(false)
+                      setConfirmLeave(false)
+                    }}
+                    style={{
+                      flex: 1, padding: '10px 0', borderRadius: 10, border: 'none',
+                      background: '#2B2622', color: '#fff', fontSize: 14, fontWeight: 700,
+                      cursor: busy ? 'not-allowed' : 'pointer', opacity: busy ? .6 : 1,
+                    }}
+                  >
+                    {busy ? 'Saindo...' : 'Sim, sair'}
+                  </button>
+                  <button
+                    onClick={() => setConfirmLeave(false)}
+                    style={{
+                      padding: '10px 18px', borderRadius: 10,
+                      border: '1.5px solid #EFE6D7', background: '#fff',
+                      color: '#8A8178', fontSize: 14, fontWeight: 600, cursor: 'pointer',
+                    }}
+                  >
+                    Cancelar
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <button
+                onClick={() => setConfirmLeave(true)}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: 8,
+                  background: 'none', border: '1.5px solid #EFE6D7', borderRadius: 12,
+                  padding: '12px 16px', cursor: 'pointer',
+                  fontSize: 14, fontWeight: 600, color: '#8A8178',
+                  width: '100%', justifyContent: 'center', transition: 'all .15s',
+                }}
+              >
+                <DoorOpen size={15} />
+                Sair do grupo
+              </button>
+            )
+          )}
+        </div>
+      )}
 
       {/* Sign out */}
       <button
