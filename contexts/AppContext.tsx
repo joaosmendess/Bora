@@ -22,6 +22,7 @@ interface AppState {
   modal: ModalType
   toast: ToastMessage | null
   loading: boolean
+  loadingDestinations: boolean
 }
 
 type Action =
@@ -38,6 +39,7 @@ type Action =
   | { type: 'SET_MODAL'; payload: ModalType }
   | { type: 'SET_TOAST'; payload: ToastMessage | null }
   | { type: 'SET_LOADING'; payload: boolean }
+  | { type: 'SET_LOADING_DESTS'; payload: boolean }
   | { type: 'UPDATE_DESTINATION'; payload: Destination }
   | { type: 'ADD_DESTINATION'; payload: Destination }
   | { type: 'REMOVE_DESTINATION'; payload: string }
@@ -56,6 +58,7 @@ const initial: AppState = {
   modal: null,
   toast: null,
   loading: true,
+  loadingDestinations: false,
 }
 
 function reducer(state: AppState, action: Action): AppState {
@@ -73,6 +76,7 @@ function reducer(state: AppState, action: Action): AppState {
     case 'SET_MODAL': return { ...state, modal: action.payload }
     case 'SET_TOAST': return { ...state, toast: action.payload }
     case 'SET_LOADING': return { ...state, loading: action.payload }
+    case 'SET_LOADING_DESTS': return { ...state, loadingDestinations: action.payload }
     case 'UPDATE_DESTINATION': return {
       ...state,
       destinations: state.destinations.map(d => d.id === action.payload.id ? action.payload : d),
@@ -148,12 +152,14 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   }, []) // eslint-disable-line
 
   const loadSpaceDestinations = useCallback(async (spaceId: string) => {
+    dispatch({ type: 'SET_LOADING_DESTS', payload: true })
     const { data } = await supabase
       .from('destinations')
       .select(`*, votes:destination_votes(*), checklist_items(*), comments(*, author:profiles(*)), photos(*), added_by_profile:profiles!added_by(*)`)
       .eq('space_id', spaceId)
       .order('created_at', { ascending: false })
     if (data) dispatch({ type: 'SET_DESTINATIONS', payload: data })
+    dispatch({ type: 'SET_LOADING_DESTS', payload: false })
   }, [])
 
   useEffect(() => {

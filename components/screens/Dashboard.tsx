@@ -43,7 +43,7 @@ function useCountUp(target: number, duration = 680) {
 }
 
 export default function Dashboard() {
-  const { user, destinations, categoryFilter, seasonFilter, budgetMax, navigate, dispatch } = useApp()
+  const { user, destinations, categoryFilter, seasonFilter, budgetMax, navigate, dispatch, loading, loadingDestinations } = useApp()
 
   const total = destinations.length
   const dreaming = destinations.filter(d => d.status === 'sonho').length
@@ -207,7 +207,17 @@ export default function Dashboard() {
       </div>
 
       {/* Destination grid */}
-      {filtered.length === 0 ? (
+      {!loading && loadingDestinations ? (
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(265px, 1fr))',
+            gap: 18,
+          }}
+        >
+          {Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)}
+        </div>
+      ) : filtered.length === 0 ? (
         <div
           style={{ textAlign: 'center', padding: '80px 20px', color: '#8A8178' }}
           className="animate-bora-fade"
@@ -263,6 +273,41 @@ export default function Dashboard() {
         </div>
       )}
     </main>
+  )
+}
+
+const shimmer: React.CSSProperties = {
+  background: 'linear-gradient(90deg, #EDE6DC 25%, #F5EFE7 50%, #EDE6DC 75%)',
+  backgroundSize: '600px 100%',
+  animation: 'boraShimmer 1.4s ease-in-out infinite',
+  borderRadius: 8,
+}
+
+function SkeletonCard() {
+  return (
+    <div style={{ background: '#fff', border: '1px solid #EFE6D7', borderRadius: 20, overflow: 'hidden' }}>
+      {/* Cover */}
+      <div style={{ ...shimmer, height: 158, borderRadius: 0 }} />
+      {/* Body */}
+      <div style={{ padding: '14px 16px 16px', display: 'flex', flexDirection: 'column', gap: 10 }}>
+        {/* Badge + title row */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <div style={{ ...shimmer, width: 60, height: 20 }} />
+          <div style={{ ...shimmer, width: 90, height: 20 }} />
+        </div>
+        {/* Title */}
+        <div style={{ ...shimmer, width: '75%', height: 22 }} />
+        {/* Country */}
+        <div style={{ ...shimmer, width: '45%', height: 14 }} />
+        {/* Progress bar */}
+        <div style={{ ...shimmer, width: '100%', height: 6, borderRadius: 3 }} />
+        {/* Footer */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 2 }}>
+          <div style={{ ...shimmer, width: 50, height: 14 }} />
+          <div style={{ ...shimmer, width: 40, height: 14 }} />
+        </div>
+      </div>
+    </div>
   )
 }
 
