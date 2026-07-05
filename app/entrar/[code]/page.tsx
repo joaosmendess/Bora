@@ -7,12 +7,14 @@ import { useApp } from '@/contexts/AppContext'
 export default function EntrarPage() {
   const params = useParams()
   const router = useRouter()
-  const { user, joinSpace, showToast } = useApp()
+  const { user, loading, joinSpace, showToast } = useApp()
   const code = params.code as string
 
   useEffect(() => {
+    // Wait until auth state is resolved
+    if (loading) return
+
     if (!user) {
-      // Save code to sessionStorage and redirect to login
       sessionStorage.setItem('pending_invite', code)
       router.push('/')
       return
@@ -26,7 +28,7 @@ export default function EntrarPage() {
       }
       router.push('/')
     })
-  }, [user, code, joinSpace, showToast, router])
+  }, [user, loading, code, joinSpace, showToast, router])
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#FBF7EF' }}>

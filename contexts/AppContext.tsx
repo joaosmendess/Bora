@@ -142,7 +142,26 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       .eq('profile_id', userId)
     if (data && data.length > 0) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const spaces = data.map((m: any) => m.spaces).filter(Boolean)
+      let spaces = data.map((m: any) => m.spaces).filter(Boolean)
+
+      // Process pending invite (saved when non-logged-in user clicked an invite link)
+      const pendingCode = typeof window !== 'undefined' ? sessionStorage.getItem('pending_invite') : null
+      if (pendingCode) {
+        sessionStorage.removeItem('pending_invite')
+        const { data: joined } = await supabase.rpc('join_space_by_code', { p_code: pendingCode })
+        if (joined && !spaces.find((s: Space) => s.id === joined.id)) {
+          spaces = [...spaces, joined]
+        }
+        if (joined) {
+          dispatch({ type: 'SET_SPACES', payload: spaces })
+          dispatch({ type: 'SET_CURRENT_SPACE', payload: joined })
+          if (typeof window !== 'undefined') localStorage.setItem('bora_space_id', joined.id)
+          await loadSpaceDestinations(joined.id)
+          dispatch({ type: 'SET_LOADING', payload: false })
+          return
+        }
+      }
+
       dispatch({ type: 'SET_SPACES', payload: spaces })
       const savedId = typeof window !== 'undefined' ? localStorage.getItem('bora_space_id') : null
       const active = (savedId && spaces.find((s: Space) => s.id === savedId)) || spaces.find((s: Space) => s.is_personal) || spaces[0]
