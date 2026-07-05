@@ -129,7 +129,7 @@ export default function DestinationDetail() {
           position: 'relative', overflow: 'hidden', marginBottom: 28,
         }}
       >
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(43,38,34,.8) 0%, rgba(43,38,34,.1) 70%)' }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(15,23,42,.8) 0%, rgba(15,23,42,.1) 70%)' }} />
 
         {/* Top row */}
         <div style={{ position: 'absolute', top: 20, left: 20, right: 20, display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
@@ -224,7 +224,7 @@ export default function DestinationDetail() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
           {/* Memory (jafui only) */}
           {isVisited && (
-            <Card style={{ background: colors['status-sonho'], border: `1px solid ${colors.golden}30` }}>
+            <Card style={{ background: colors['status-sonho'], border: '1px solid #D9770630' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
                 <Label>Lembrança</Label>
                 <div style={{ display: 'flex', gap: 4 }}>
@@ -232,7 +232,7 @@ export default function DestinationDetail() {
                     <button key={star} onClick={() => updateDestination(d.id, { rating: star })}
                       style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
                     >
-                      <Star size={18} fill={star <= d.rating ? colors.golden : 'transparent'} stroke={colors.golden} />
+                      <Star size={18} fill={star <= d.rating ? '#D97706' : 'transparent'} stroke={'#D97706'} />
                     </button>
                   ))}
                 </div>
@@ -258,7 +258,7 @@ export default function DestinationDetail() {
                   <svg width="96" height="96" viewBox="0 0 96 96">
                     <circle cx="48" cy="48" r="38" fill="none" stroke={colors.border} strokeWidth="9" />
                     <circle
-                      cx="48" cy="48" r="38" fill="none" stroke={colors.teal} strokeWidth="9"
+                      cx="48" cy="48" r="38" fill="none" stroke={colors.coral} strokeWidth="9"
                       strokeDasharray={`${2 * Math.PI * 38 * savingsPct / 100} ${2 * Math.PI * 38}`}
                       strokeLinecap="round"
                       transform="rotate(-90 48 48)"
@@ -281,7 +281,7 @@ export default function DestinationDetail() {
               <div style={{ display: 'flex', gap: 6, marginBottom: 6, flexWrap: 'wrap' }}>
                 {[500, 1000, 2000].map(amt => (
                   <button key={amt} onClick={() => handleSaveAmount(amt)}
-                    style={{ padding: '6px 12px', borderRadius: 8, border: `1.5px solid ${colors.teal}`, background: '#fff', fontSize: 12, fontWeight: 700, color: colors.teal, cursor: 'pointer' }}
+                    style={{ padding: '6px 12px', borderRadius: 8, border: `1.5px solid ${colors.coral}`, background: '#fff', fontSize: 12, fontWeight: 700, color: colors.coral, cursor: 'pointer' }}
                   >
                     +{amt >= 1000 ? `${amt/1000}k` : amt}
                   </button>
@@ -301,7 +301,7 @@ export default function DestinationDetail() {
                   style={{ ...inputStyle, flex: 1 }}
                 />
                 <button onClick={handleCustomSave}
-                  style={{ padding: '8px 14px', borderRadius: 11, background: colors.teal, color: '#fff', border: 'none', fontWeight: 700, fontSize: 13, cursor: 'pointer' }}
+                  style={{ padding: '8px 14px', borderRadius: 11, background: colors.coral, color: '#fff', border: 'none', fontWeight: 700, fontSize: 13, cursor: 'pointer' }}
                 >
                   Adicionar
                 </button>
@@ -326,7 +326,7 @@ export default function DestinationDetail() {
                   style={{
                     padding: '6px 12px', borderRadius: 8, border: 'none', cursor: 'pointer',
                     fontSize: 12, fontWeight: 600,
-                    background: d.status === s ? STATUS_COLORS[s] : colors['tab-bg'],
+                    background: d.status === s ? STATUS_COLORS[s] : colors.border,
                     color: d.status === s ? '#fff' : colors['text-soft'],
                     transition: 'all .15s',
                   }}
@@ -345,7 +345,7 @@ export default function DestinationDetail() {
             </div>
             {checklistTotal > 0 && (
               <div style={{ height: 4, background: colors.border, borderRadius: 2, overflow: 'hidden', marginBottom: 12 }}>
-                <div style={{ height: '100%', borderRadius: 2, background: colors.teal, width: `${checklistPct}%`, transition: 'width .4s ease' }} />
+                <div style={{ height: '100%', borderRadius: 2, background: colors['status-jafui-accent'], width: `${checklistPct}%`, transition: 'width .4s ease' }} />
               </div>
             )}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
@@ -357,7 +357,7 @@ export default function DestinationDetail() {
                   </span>
                   <button
                     onClick={() => deleteChecklistItem(item.id, d.id)}
-                    style={{ background: 'none', border: 'none', cursor: 'pointer', color: colors['text-faint'], padding: '2px 4px', flexShrink: 0, display: 'flex', alignItems: 'center' }}
+                    style={{ background: 'none', border: 'none', cursor: 'pointer', color: colors['text-muted'], padding: '2px 4px', flexShrink: 0, display: 'flex', alignItems: 'center' }}
                     title="Remover tarefa"
                   >
                     <Trash2 size={12} />
@@ -373,7 +373,7 @@ export default function DestinationDetail() {
                 style={{ ...inputStyle, flex: 1 }}
               />
               <button onClick={handleAddTask}
-                style={{ padding: '8px 12px', borderRadius: 11, background: colors.teal, color: '#fff', border: 'none', cursor: 'pointer' }}
+                style={{ padding: '8px 12px', borderRadius: 11, background: colors.ink, color: '#fff', border: 'none', cursor: 'pointer' }}
               >
                 <Plus size={16} />
               </button>
@@ -429,9 +429,9 @@ export default function DestinationDetail() {
                     style={{
                       height: 116, borderRadius: 10,
                       backgroundImage: photo ? `url(${photo.url})` : undefined,
-                      backgroundColor: photo ? undefined : colors['tab-bg'],
+                      backgroundColor: photo ? undefined : colors.border,
                       backgroundSize: 'cover', backgroundPosition: 'center',
-                      border: `1.5px dashed ${colors['border-alt']}`,
+                      border: `1.5px dashed ${colors['border-strong']}`,
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
                       cursor: photo ? 'default' : 'pointer', color: colors['text-muted'],
                       position: 'relative', overflow: 'hidden',
@@ -542,7 +542,7 @@ function Label({ children }: { children: React.ReactNode }) {
 
 function FactItem({ label, value }: { label: string; value: string }) {
   return (
-    <div style={{ background: colors['input-bg'], borderRadius: 10, padding: '10px 12px' }}>
+    <div style={{ background: colors.paper, borderRadius: 10, padding: '10px 12px' }}>
       <div style={{ fontSize: 11, color: colors['text-soft'], textTransform: 'uppercase', letterSpacing: '.08em', marginBottom: 3 }}>{label}</div>
       <div style={{ fontSize: 14, fontWeight: 600, color: colors.ink }}>{value}</div>
     </div>
@@ -551,13 +551,13 @@ function FactItem({ label, value }: { label: string; value: string }) {
 
 const inputStyle: React.CSSProperties = {
   width: '100%', padding: '9px 13px', borderRadius: 11,
-  border: `1.5px solid ${colors.border}`, background: colors['input-bg'],
+  border: `1.5px solid ${colors.border}`, background: colors.paper,
   fontSize: 14, color: colors.ink, fontFamily: 'inherit',
 }
 
 const textareaStyle: React.CSSProperties = {
   width: '100%', padding: '10px 14px', borderRadius: 11,
-  border: `1.5px solid ${colors.border}`, background: colors['input-bg'],
+  border: `1.5px solid ${colors.border}`, background: colors.paper,
   fontSize: 14, color: colors.ink, fontFamily: 'inherit',
   resize: 'vertical',
 }

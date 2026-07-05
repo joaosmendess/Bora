@@ -5,7 +5,14 @@ import { useApp } from '@/contexts/AppContext'
 import { X } from 'lucide-react'
 import { colors } from '@/lib/colors'
 
-const COLORS = [colors.coral, colors.teal, colors.golden, colors.green, colors['text-soft'], colors.ink]
+const COLORS = [
+  colors.coral,
+  colors['status-planejando-accent'],
+  colors['status-sonho-accent'],
+  colors['status-jafui-accent'],
+  colors['text-soft'],
+  colors.ink,
+]
 
 export default function CreateGroupModal() {
   const { dispatch, createSpace, switchSpace, showToast } = useApp()
@@ -121,6 +128,6 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
 
 const inputStyle: React.CSSProperties = {
   width: '100%', padding: '10px 14px', borderRadius: 11,
-  border: `1.5px solid ${colors.border}`, background: colors['input-bg'],
+  border: `1.5px solid ${colors.border}`, background: colors.paper,
   fontSize: 14, color: colors.ink, fontFamily: 'inherit',
 }

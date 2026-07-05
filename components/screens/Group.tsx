@@ -15,7 +15,7 @@ export default function Group() {
   if (!currentSpace) {
     return (
       <main style={{ maxWidth: 620, margin: '0 auto', padding: 'clamp(22px,4vw,42px) clamp(16px,3vw,34px)', animation: 'boraFade .4s ease both', textAlign: 'center', paddingTop: 80 }}>
-        <Users size={36} style={{ color: colors['border-alt'], margin: '0 auto 16px' }} />
+        <Users size={36} style={{ color: colors.border, margin: '0 auto 16px' }} />
         <p style={{ fontSize: 15, fontWeight: 600, color: colors.ink, marginBottom: 6 }}>Nenhum grupo selecionado</p>
         <p style={{ fontSize: 13, color: colors['text-soft'], marginBottom: 20 }}>Crie ou entre em um grupo pela barra de navegação.</p>
         <button
@@ -103,7 +103,7 @@ export default function Group() {
             onClick={handleCopy}
             style={{
               display: 'flex', alignItems: 'center', gap: 6,
-              background: copied ? colors.teal : 'rgba(255,255,255,.15)',
+              background: copied ? colors.coral : 'rgba(255,255,255,.15)',
               border: 'none', borderRadius: 8, padding: '8px 14px',
               color: '#fff', fontSize: 13, fontWeight: 700, cursor: 'pointer',
               transition: 'all .2s', flexShrink: 0,
@@ -154,8 +154,8 @@ export default function Group() {
               style={{
                 fontSize: 11, fontWeight: 700, borderRadius: 6,
                 padding: '3px 8px', textTransform: 'uppercase', letterSpacing: '.08em',
-                background: m.role === 'dono' ? colors['status-sonho'] : colors['tab-bg'],
-                color: m.role === 'dono' ? colors['golden-text'] : colors['text-soft'],
+                background: m.role === 'dono' ? colors['status-sonho'] : colors.paper,
+                color: m.role === 'dono' ? '#D97706' : colors['text-soft'],
               }}
             >
               {m.role === 'dono' ? 'Admin' : 'Membro'}

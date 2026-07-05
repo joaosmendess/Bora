@@ -28,7 +28,7 @@ export default function Login() {
             className="relative overflow-hidden flex flex-col justify-end p-10 min-h-[380px]"
             style={{
               backgroundImage: `
-                linear-gradient(150deg, ${colors.coral}, ${colors['coral-light']}, ${colors.golden}),
+                linear-gradient(145deg, ${colors.coral} 0%, ${colors['coral-dark']} 100%),
                 radial-gradient(circle, rgba(255,255,255,.18) 1px, transparent 1px)
               `,
               backgroundSize: '100% 100%, 20px 20px',
@@ -125,7 +125,7 @@ export default function Login() {
               className="w-full flex items-center gap-3 justify-center transition-all hover:shadow-md active:scale-[.98]"
               style={{
                 background: '#fff',
-                border: `1.5px solid ${colors['border-alt']}`,
+                border: `1.5px solid ${colors.border}`,
                 borderRadius: 14,
                 padding: '14px 20px',
                 cursor: loading ? 'not-allowed' : 'pointer',

@@ -1,37 +1,34 @@
-/**
- * Single source of truth for the Bora color palette.
- * tailwind.config.ts extends its theme from this file, and components
- * import `colors` directly for inline styles that can't use Tailwind classes.
- */
 export const colors = {
-  coral: '#E8714C',
-  'coral-light': '#E8924C',
-  golden: '#E8B23C',
-  'golden-text': '#D99A1F',
-  teal: '#2FA39A',
-  green: '#7FA86B',
-  blue: '#5B96E8',
-  purple: '#A882D4',
-  pink: '#E8708A',
+  // Brand — the one accent color (+ tints/shades of the same hue for gradients)
+  coral: '#F06840',
+  'coral-light': '#F5946F',
+  'coral-dark': '#C94825',
 
-  ink: '#2B2622',
-  'text-soft': '#8A8178',
-  'text-muted': '#B0917A',
-  'text-faint': '#C8B8A8',
+  // Neutral scale (slate, not warm)
+  ink: '#0F172A',
+  'text-soft': '#64748B',
+  'text-muted': '#94A3B8',
 
-  paper: '#FBF7EF',
-  dot: '#E6DCC9',
-  border: '#EFE6D7',
-  'border-alt': '#EBE1D2',
-  'border-muted': '#D4C4B0',
-  'input-bg': '#FBF9F4',
-  'tab-bg': '#F1E9DC',
+  // Surfaces
+  paper: '#F8FAFC',
+  border: '#E2E8F0',
+  'border-strong': '#CBD5E1',
 
-  'danger-bg': '#FFF4F2',
-  'danger-border': '#FCCBC0',
+  // Semantic
+  'danger-bg': '#FFF1F2',
+  'danger-border': '#FECDD3',
 
-  'status-sonho': '#FBF0D6',
-  'status-embreve': '#FBE3DA',
-  'status-planejando': '#D9F0ED',
-  'status-jafui': '#E6EFDF',
+  // Status — one family, one recipe: same saturation and the same white-text
+  // contrast weight as coral, only the hue rotates. Previously these were
+  // independent stock Tailwind swatches (amber-600, blue-500, green-600) that
+  // didn't share any relationship with each other or with coral — that's
+  // what read as "disconnected." Pastel backgrounds follow the same rule
+  // (same saturation/lightness recipe, hue-matched to their accent).
+  'status-sonho': '#F7F1DE',
+  'status-sonho-accent': '#B38B14',
+  'status-embreve': '#F7E4DE',
+  'status-planejando': '#DEEAF7',
+  'status-planejando-accent': '#4794EB',
+  'status-jafui': '#DEF7EB',
+  'status-jafui-accent': '#13A85D',
 } as const

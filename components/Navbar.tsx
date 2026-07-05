@@ -49,9 +49,9 @@ export default function Navbar() {
     <header
       style={{
         position: 'sticky', top: 0, zIndex: 50,
-        background: 'rgba(251,247,239,.82)',
+        background: 'rgba(248,250,252,.82)',
         backdropFilter: 'blur(10px)',
-        borderBottom: `1px solid ${colors['border-alt']}`,
+        borderBottom: `1px solid ${colors.border}`,
       }}
     >
       <div
@@ -80,7 +80,7 @@ export default function Navbar() {
             onClick={() => dispatch({ type: 'SET_SPACE_MENU', payload: !spaceMenuOpen })}
             style={{
               display: 'flex', alignItems: 'center', gap: 8,
-              background: '#fff', border: `1.5px solid ${colors['border-alt']}`, borderRadius: 12,
+              background: '#fff', border: `1.5px solid ${colors.border}`, borderRadius: 12,
               padding: '7px 12px', cursor: 'pointer',
               fontSize: 14, fontWeight: 600, color: colors.ink,
             }}
@@ -114,7 +114,7 @@ export default function Navbar() {
               style={{
                 position: 'absolute', top: 'calc(100% + 8px)', left: 0,
                 background: '#fff', borderRadius: 16,
-                boxShadow: '0 24px 50px -24px rgba(43,38,34,.5)',
+                boxShadow: '0 24px 50px -24px rgba(15,23,42,.5)',
                 border: `1px solid ${colors.border}`,
                 overflow: 'hidden', zIndex: 100,
               }}
@@ -174,7 +174,7 @@ export default function Navbar() {
         <nav
           className="hidden md:flex"
           style={{
-            background: colors['tab-bg'], borderRadius: 12,
+            background: colors.paper, borderRadius: 12,
             padding: 4, gap: 0, flexShrink: 0,
           }}
         >
@@ -187,7 +187,7 @@ export default function Navbar() {
                 fontSize: 14, fontWeight: 500,
                 background: activeTab === tab.key ? '#fff' : 'transparent',
                 color: activeTab === tab.key ? colors.ink : colors['text-soft'],
-                boxShadow: activeTab === tab.key ? '0 1px 3px rgba(43,38,34,.08)' : 'none',
+                boxShadow: activeTab === tab.key ? '0 1px 3px rgba(15,23,42,.08)' : 'none',
                 transition: 'all .15s',
               }}
             >
@@ -230,7 +230,7 @@ export default function Navbar() {
             background: colors.coral, color: '#fff',
             border: 'none', borderRadius: 12, padding: '8px 16px',
             fontSize: 14, fontWeight: 600, cursor: 'pointer',
-            boxShadow: '0 8px 18px -8px rgba(232,113,76,.8)',
+            boxShadow: '0 8px 18px -8px rgba(240,104,64,.8)',
             transition: 'all .15s',
           }}
           className="hidden md:flex hover:opacity-90 active:scale-95"

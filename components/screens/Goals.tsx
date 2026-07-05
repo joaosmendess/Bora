@@ -46,7 +46,7 @@ function GoalCard({
     >
       {/* Drag handle */}
       <div
-        style={{ cursor: 'grab', color: colors['text-faint'], marginTop: 2, flexShrink: 0 }}
+        style={{ cursor: 'grab', color: colors['text-muted'], marginTop: 2, flexShrink: 0 }}
         title="Arraste para mover"
       >
         <GripVertical size={16} />

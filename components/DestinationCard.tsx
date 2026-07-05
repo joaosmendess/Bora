@@ -5,7 +5,7 @@ import { useApp } from '@/contexts/AppContext'
 import type { Destination } from '@/lib/types'
 import { STATUS_COLORS, STATUS_LABELS, COVER_GRADIENTS } from '@/lib/types'
 import { colors } from '@/lib/colors'
-import { Calendar, Heart } from 'lucide-react'
+import { Calendar, Heart, Check } from 'lucide-react'
 
 interface Props {
   destination: Destination
@@ -42,7 +42,7 @@ export default function DestinationCard({ destination, index = 0 }: Props) {
       }}
       onMouseEnter={e => {
         (e.currentTarget as HTMLElement).style.transform = 'translateY(-4px)'
-        ;(e.currentTarget as HTMLElement).style.boxShadow = '0 22px 40px -24px rgba(43,38,34,.45)'
+        ;(e.currentTarget as HTMLElement).style.boxShadow = '0 22px 40px -24px rgba(15,23,42,.45)'
       }}
       onMouseLeave={e => {
         (e.currentTarget as HTMLElement).style.transform = ''
@@ -59,7 +59,7 @@ export default function DestinationCard({ destination, index = 0 }: Props) {
           }}
         />
         {/* Gradient overlay bottom */}
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(43,38,34,.7) 0%, transparent 60%)' }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(15,23,42,.7) 0%, transparent 60%)' }} />
 
         {/* Status pill */}
         <div
@@ -98,20 +98,23 @@ export default function DestinationCard({ destination, index = 0 }: Props) {
           {voteCount > 0 && voteCount}
         </button>
 
-        {/* Visited stamp */}
+        {/* Visited stamp — an ink-stamp seal, echoing the dashed radar rings on the login hero */}
         {isVisited && (
           <div
             style={{
-              position: 'absolute', bottom: 36, right: 14,
-              border: '2.5px solid rgba(255,255,255,.8)',
-              borderRadius: 4, padding: '3px 8px',
-              fontSize: 10, fontWeight: 800, color: 'rgba(255,255,255,.8)',
-              letterSpacing: '.14em', textTransform: 'uppercase',
-              transform: 'rotate(-15deg)',
+              position: 'absolute', bottom: 14, right: 14,
+              width: 72, height: 72, borderRadius: '50%',
+              border: '2px solid rgba(255,255,255,.85)',
+              outline: '1px solid rgba(255,255,255,.4)', outlineOffset: 4,
+              display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 2,
+              transform: 'rotate(-16deg)',
               animation: 'boraStamp .55s cubic-bezier(.3,1.4,.5,1) both',
             }}
           >
-            Visitado
+            <Check size={16} strokeWidth={3} style={{ color: 'rgba(255,255,255,.9)' }} />
+            <span style={{ fontSize: 9, fontWeight: 800, color: 'rgba(255,255,255,.9)', letterSpacing: '.08em', textTransform: 'uppercase' }}>
+              Visitado
+            </span>
           </div>
         )}
 
@@ -167,7 +170,7 @@ export default function DestinationCard({ destination, index = 0 }: Props) {
               <div
                 style={{
                   height: '100%', borderRadius: 2,
-                  background: colors.teal,
+                  background: colors.coral,
                   width: `${savingsPct}%`,
                   animation: 'boraGrow .85s cubic-bezier(.2,.8,.2,1) both',
                   transformOrigin: 'left',

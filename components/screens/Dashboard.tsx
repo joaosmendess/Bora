@@ -223,7 +223,7 @@ export default function Dashboard() {
           style={{ textAlign: 'center', padding: '80px 20px', color: colors['text-soft'] }}
           className="animate-bora-fade"
         >
-          <MapPin size={40} style={{ color: colors['border-alt'], margin: '0 auto 16px' }} />
+          <MapPin size={40} style={{ color: colors['border-strong'], margin: '0 auto 16px' }} />
           <p style={{ fontSize: 18, fontWeight: 600, marginBottom: 8, color: colors.ink }}>
             {destinations.length === 0 ? 'Nenhum destino ainda' : 'Nenhum destino com esses filtros'}
           </p>

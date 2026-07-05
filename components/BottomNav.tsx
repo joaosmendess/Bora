@@ -34,7 +34,7 @@ export default function BottomNav() {
 
   return (
     <nav
-      className="md:hidden fixed inset-x-0 bottom-0 z-50 bg-paper/95 backdrop-blur border-t border-border-alt pb-[env(safe-area-inset-bottom)]"
+      className="md:hidden fixed inset-x-0 bottom-0 z-50 bg-white/95 backdrop-blur border-t border-border pb-[env(safe-area-inset-bottom)]"
     >
       <div className="flex items-stretch justify-between px-1">
         {firstHalf.map(tab => (

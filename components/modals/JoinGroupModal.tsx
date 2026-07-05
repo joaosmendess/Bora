@@ -43,7 +43,7 @@ export default function JoinGroupModal() {
         autoFocus
         style={{
           width: '100%', padding: '11px 14px', borderRadius: 11,
-          border: `1.5px solid ${error ? colors.coral : colors.border}`, background: colors['input-bg'],
+          border: `1.5px solid ${error ? colors.coral : colors.border}`, background: colors.paper,
           fontSize: 14, color: colors.ink, fontFamily: 'inherit',
           marginBottom: error ? 8 : 20,
         }}

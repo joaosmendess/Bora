@@ -14,7 +14,7 @@ function getDaysLeft(targetDate: string | null): number | null {
 function DaysDisplay({ days }: { days: number | null }) {
   if (days === null) return null
   if (days > 0) {
-    const color = days <= 60 ? colors.coral : colors.teal
+    const color = days <= 60 ? colors.coral : colors['status-jafui-accent']
     return (
       <span style={{ fontFamily: 'var(--font-bricolage), sans-serif', fontWeight: 800, fontSize: 24, color }}>
         {days} {days === 1 ? 'dia' : 'dias'}
@@ -27,7 +27,7 @@ function DaysDisplay({ days }: { days: number | null }) {
     </span>
   )
   return (
-    <span style={{ display: 'flex', alignItems: 'center', gap: 4, fontFamily: 'var(--font-bricolage), sans-serif', fontWeight: 800, fontSize: 22, color: colors.green }}>
+    <span style={{ display: 'flex', alignItems: 'center', gap: 4, fontFamily: 'var(--font-bricolage), sans-serif', fontWeight: 800, fontSize: 22, color: colors['status-jafui-accent'] }}>
       vivida <Check size={18} strokeWidth={3} />
     </span>
   )
@@ -146,7 +146,7 @@ export default function Agenda() {
 
       {upcoming.length === 0 && visited.length === 0 && (
         <div style={{ textAlign: 'center', padding: '80px 20px', color: colors['text-soft'] }}>
-          <Calendar size={40} style={{ color: colors['border-alt'], margin: '0 auto 16px' }} />
+          <Calendar size={40} style={{ color: colors['border-strong'], margin: '0 auto 16px' }} />
           <p style={{ fontSize: 16, fontWeight: 600, color: colors.ink, marginBottom: 6 }}>
             Nenhuma viagem com data marcada
           </p>

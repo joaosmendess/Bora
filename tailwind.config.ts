@@ -22,10 +22,10 @@ const config: Config = {
         pill: '30px',
       },
       boxShadow: {
-        card: '0 22px 40px -24px rgba(43,38,34,.45)',
-        'btn-coral': '0 8px 18px -8px rgba(232,113,76,.8)',
-        dropdown: '0 24px 50px -24px rgba(43,38,34,.5)',
-        modal: '0 40px 80px -30px rgba(0,0,0,.55)',
+        card: '0 1px 3px rgba(15,23,42,.08), 0 4px 12px rgba(15,23,42,.06)',
+        'btn-coral': '0 8px 18px -8px rgba(240,104,64,.7)',
+        dropdown: '0 8px 24px rgba(15,23,42,.12)',
+        modal: '0 20px 60px rgba(15,23,42,.2)',
       },
       keyframes: {
         boraFade: {

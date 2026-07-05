@@ -93,10 +93,10 @@ export interface ToastMessage {
 }
 
 export const STATUS_COLORS: Record<DestinationStatus, string> = {
-  sonho: colors.golden,
-  embreve: colors.coral,
-  planejando: colors.teal,
-  jafui: colors.green,
+  sonho:      colors['status-sonho-accent'],
+  embreve:    colors.coral,
+  planejando: colors['status-planejando-accent'],
+  jafui:      colors['status-jafui-accent'],
 }
 
 export const STATUS_BG: Record<DestinationStatus, string> = {
@@ -135,10 +135,10 @@ export interface ItineraryItem {
 }
 
 export const COVER_GRADIENTS = [
-  'linear-gradient(135deg, #E8714C, #E8924C)',
-  'linear-gradient(135deg, #2FA39A, #7FA86B)',
-  'linear-gradient(135deg, #E8B23C, #E8714C)',
-  'linear-gradient(135deg, #2B2622, #8A8178)',
-  'linear-gradient(135deg, #7FA86B, #2FA39A)',
-  'linear-gradient(135deg, #E8924C, #E8B23C)',
+  'linear-gradient(135deg, #F06840, #E84A2A)',
+  'linear-gradient(135deg, #3B82F6, #6366F1)',
+  'linear-gradient(135deg, #10B981, #0EA5E9)',
+  'linear-gradient(135deg, #8B5CF6, #EC4899)',
+  'linear-gradient(135deg, #F59E0B, #F06840)',
+  'linear-gradient(135deg, #0F172A, #334155)',
 ]
