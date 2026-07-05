@@ -138,7 +138,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const loadSpaces = useCallback(async (userId: string) => {
     const { data } = await supabase
       .from('space_members')
-      .select('space_id, role, spaces(*)')
+      .select('space_id, role, spaces(*, members:space_members(*, profile:profiles(*)))')
       .eq('profile_id', userId)
     if (data && data.length > 0) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -324,6 +324,15 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     await updateDestination(destinationId, { saved: newSaved })
   }, [state.destinations, updateDestination])
 
+  async function fetchSpaceWithMembers(spaceId: string): Promise<Space | null> {
+    const { data } = await supabase
+      .from('spaces')
+      .select('*, members:space_members(*, profile:profiles(*))')
+      .eq('id', spaceId)
+      .single()
+    return data ?? null
+  }
+
   const createSpace = useCallback(async (name: string, color: string): Promise<Space | null> => {
     if (!state.user) return null
     const invite_code = generateInviteCode()
@@ -340,17 +349,19 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       showToast('Não foi possível criar o grupo.')
       return null
     }
-    dispatch({ type: 'SET_SPACES', payload: [...state.spaces, space] })
-    return space
-  }, [state.user, state.spaces, showToast])
+    const full = await fetchSpaceWithMembers(space.id) ?? space
+    dispatch({ type: 'SET_SPACES', payload: [...state.spaces, full] })
+    return full
+  }, [state.user, state.spaces, showToast]) // eslint-disable-line
 
   const joinSpace = useCallback(async (codeOrLink: string): Promise<boolean> => {
     if (!state.user) return false
     const code = codeOrLink.trim().split('/').pop() || codeOrLink.trim()
     const { data: space, error } = await supabase.rpc('join_space_by_code', { p_code: code })
     if (error || !space) return false
-    dispatch({ type: 'SET_SPACES', payload: [...state.spaces, space] })
-    switchSpace(space)
+    const full = await fetchSpaceWithMembers(space.id) ?? space
+    dispatch({ type: 'SET_SPACES', payload: [...state.spaces, full] })
+    switchSpace(full)
     return true
   }, [state.user, state.spaces]) // eslint-disable-line
 
