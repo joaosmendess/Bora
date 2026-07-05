@@ -144,9 +144,10 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const spaces = data.map((m: any) => m.spaces).filter(Boolean)
       dispatch({ type: 'SET_SPACES', payload: spaces })
-      const personal = spaces.find((s: Space) => s.is_personal)
-      dispatch({ type: 'SET_CURRENT_SPACE', payload: personal || spaces[0] })
-      await loadSpaceDestinations((personal || spaces[0]).id)
+      const savedId = typeof window !== 'undefined' ? localStorage.getItem('bora_space_id') : null
+      const active = (savedId && spaces.find((s: Space) => s.id === savedId)) || spaces.find((s: Space) => s.is_personal) || spaces[0]
+      dispatch({ type: 'SET_CURRENT_SPACE', payload: active })
+      await loadSpaceDestinations(active.id)
     }
     dispatch({ type: 'SET_LOADING', payload: false })
   }, []) // eslint-disable-line
@@ -335,6 +336,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   }, [state.user, state.spaces]) // eslint-disable-line
 
   const switchSpace = useCallback((space: Space) => {
+    if (typeof window !== 'undefined') localStorage.setItem('bora_space_id', space.id)
     dispatch({ type: 'SET_CURRENT_SPACE', payload: space })
     dispatch({ type: 'SET_SPACE_MENU', payload: false })
     loadSpaceDestinations(space.id)
@@ -347,6 +349,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     dispatch({ type: 'SET_SPACES', payload: remaining })
     const fallback = remaining.find(s => s.is_personal) || remaining[0] || null
     dispatch({ type: 'SET_CURRENT_SPACE', payload: fallback })
+    if (typeof window !== 'undefined') localStorage.setItem('bora_space_id', fallback?.id || '')
     if (fallback) await loadSpaceDestinations(fallback.id)
     else dispatch({ type: 'SET_DESTINATIONS', payload: [] })
     return true
@@ -361,6 +364,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     dispatch({ type: 'SET_SPACES', payload: remaining })
     const fallback = remaining.find(s => s.is_personal) || remaining[0] || null
     dispatch({ type: 'SET_CURRENT_SPACE', payload: fallback })
+    if (typeof window !== 'undefined') localStorage.setItem('bora_space_id', fallback?.id || '')
     if (fallback) await loadSpaceDestinations(fallback.id)
     else dispatch({ type: 'SET_DESTINATIONS', payload: [] })
     return true
