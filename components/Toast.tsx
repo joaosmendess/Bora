@@ -2,6 +2,7 @@
 
 import { useApp } from '@/contexts/AppContext'
 import { X } from 'lucide-react'
+import { colors } from '@/lib/colors'
 
 export default function Toast() {
   const { toast, dispatch } = useApp()
@@ -14,7 +15,7 @@ export default function Toast() {
       onClick={() => dispatch({ type: 'SET_TOAST', payload: null })}
       style={{
         position: 'fixed', bottom: 24, left: '50%', transform: 'translateX(-50%)',
-        background: '#2B2622', color: '#fff',
+        background: colors.ink, color: '#fff',
         borderRadius: 30, padding: '10px 18px 10px 22px',
         fontSize: 14, fontWeight: 600,
         boxShadow: '0 8px 24px rgba(43,38,34,.3)',

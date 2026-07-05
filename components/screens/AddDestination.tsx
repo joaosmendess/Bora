@@ -5,6 +5,7 @@ import { useApp } from '@/contexts/AppContext'
 import type { DestinationStatus } from '@/lib/types'
 import { STATUS_COLORS, STATUS_LABELS, SEASONS, COVER_GRADIENTS } from '@/lib/types'
 import { uploadImage } from '@/lib/storage'
+import { colors } from '@/lib/colors'
 import { ArrowLeft, ImagePlus, Loader2 } from 'lucide-react'
 
 export default function AddDestination() {
@@ -86,7 +87,7 @@ export default function AddDestination() {
         style={{
           display: 'flex', alignItems: 'center', gap: 6,
           background: 'none', border: 'none', cursor: 'pointer',
-          color: '#8A8178', fontSize: 14, fontWeight: 500, marginBottom: 24,
+          color: colors['text-soft'], fontSize: 14, fontWeight: 500, marginBottom: 24,
         }}
       >
         <ArrowLeft size={16} />
@@ -97,13 +98,13 @@ export default function AddDestination() {
         style={{
           fontFamily: 'var(--font-bricolage), sans-serif',
           fontWeight: 800, fontSize: 'clamp(28px,4vw,40px)',
-          letterSpacing: '-0.03em', color: '#2B2622', marginBottom: 28,
+          letterSpacing: '-0.03em', color: colors.ink, marginBottom: 28,
         }}
       >
         Pra onde dessa vez?
       </h1>
 
-      <div style={{ background: '#fff', border: '1px solid #EFE6D7', borderRadius: 20, padding: '28px 28px', display: 'flex', flexDirection: 'column', gap: 22 }}>
+      <div style={{ background: '#fff', border: `1px solid ${colors.border}`, borderRadius: 20, padding: '28px 28px', display: 'flex', flexDirection: 'column', gap: 22 }}>
 
         {/* Cover photo */}
         <div>
@@ -155,7 +156,7 @@ export default function AddDestination() {
                   onClick={() => setCoverIndex(i)}
                   style={{
                     width: 32, height: 32, borderRadius: 8, background: grad,
-                    border: coverIndex === i ? '2.5px solid #2B2622' : '2.5px solid transparent',
+                    border: coverIndex === i ? `2.5px solid ${colors.ink}` : '2.5px solid transparent',
                     cursor: 'pointer',
                   }}
                 />
@@ -163,7 +164,7 @@ export default function AddDestination() {
             </div>
           )}
           {coverUrl && (
-            <button onClick={() => { setCoverUrl(null) }} style={{ fontSize: 12, color: '#8A8178', background: 'none', border: 'none', cursor: 'pointer' }}>
+            <button onClick={() => { setCoverUrl(null) }} style={{ fontSize: 12, color: colors['text-soft'], background: 'none', border: 'none', cursor: 'pointer' }}>
               Remover foto e usar gradiente
             </button>
           )}
@@ -197,8 +198,8 @@ export default function AddDestination() {
                 style={{
                   padding: '7px 14px', borderRadius: 10, border: 'none', cursor: 'pointer',
                   fontSize: 13, fontWeight: 600,
-                  background: status === s ? STATUS_COLORS[s] : '#F1E9DC',
-                  color: status === s ? '#fff' : '#8A8178',
+                  background: status === s ? STATUS_COLORS[s] : colors['tab-bg'],
+                  color: status === s ? '#fff' : colors['text-soft'],
                   transition: 'all .15s',
                 }}
               >
@@ -227,8 +228,8 @@ export default function AddDestination() {
                 style={{
                   padding: '6px 12px', borderRadius: 10, border: 'none', cursor: 'pointer',
                   fontSize: 12, fontWeight: 600,
-                  background: season === s ? '#2B2622' : '#F1E9DC',
-                  color: season === s ? '#fff' : '#8A8178',
+                  background: season === s ? colors.ink : colors['tab-bg'],
+                  color: season === s ? '#fff' : colors['text-soft'],
                   transition: 'all .15s',
                 }}
               >
@@ -262,7 +263,7 @@ export default function AddDestination() {
             disabled={saving || uploading || !name.trim() || !country.trim()}
             style={{
               flex: 1, padding: '12px 20px', borderRadius: 12, border: 'none',
-              background: '#E8714C', color: '#fff', fontSize: 15, fontWeight: 700,
+              background: colors.coral, color: '#fff', fontSize: 15, fontWeight: 700,
               cursor: saving || uploading || !name.trim() || !country.trim() ? 'not-allowed' : 'pointer',
               opacity: saving || uploading || !name.trim() || !country.trim() ? .5 : 1,
               boxShadow: '0 8px 18px -8px rgba(232,113,76,.8)',
@@ -275,8 +276,8 @@ export default function AddDestination() {
             onClick={() => navigate('dashboard')}
             style={{
               padding: '12px 20px', borderRadius: 12,
-              border: '1.5px solid #EFE6D7', background: '#fff',
-              color: '#8A8178', fontSize: 15, fontWeight: 600, cursor: 'pointer',
+              border: `1.5px solid ${colors.border}`, background: '#fff',
+              color: colors['text-soft'], fontSize: 15, fontWeight: 600, cursor: 'pointer',
             }}
           >
             Cancelar
@@ -291,12 +292,12 @@ export default function AddDestination() {
 
 const inputStyle: React.CSSProperties = {
   width: '100%', padding: '10px 14px', borderRadius: 11,
-  border: '1.5px solid #EFE6D7', background: '#FBF9F4',
-  fontSize: 14, color: '#2B2622', fontFamily: 'inherit',
+  border: `1.5px solid ${colors.border}`, background: colors['input-bg'],
+  fontSize: 14, color: colors.ink, fontFamily: 'inherit',
 }
 
 const labelStyle: React.CSSProperties = {
-  fontSize: 13, fontWeight: 600, color: '#8A8178',
+  fontSize: 13, fontWeight: 600, color: colors['text-soft'],
   textTransform: 'uppercase', letterSpacing: '.08em',
   display: 'block', marginBottom: 7,
 }

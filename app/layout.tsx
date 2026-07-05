@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Bricolage_Grotesque, Plus_Jakarta_Sans } from 'next/font/google'
 import './globals.css'
 import { AppProvider } from '@/contexts/AppContext'
@@ -23,6 +23,13 @@ export const metadata: Metadata = {
   icons: {
     icon: '/icon.svg',
   },
+}
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+  themeColor: '#FBF7EF',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

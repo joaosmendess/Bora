@@ -1,3 +1,5 @@
+import { colors } from './colors'
+
 export type Screen = 'dashboard' | 'add' | 'detail' | 'map' | 'agenda' | 'goals' | 'group'
 export type Tab = 'lista' | 'agenda' | 'mapa' | 'metas'
 export type StatusFilter = 'todos' | 'sonho' | 'embreve' | 'planejando' | 'jafui'
@@ -91,17 +93,17 @@ export interface ToastMessage {
 }
 
 export const STATUS_COLORS: Record<DestinationStatus, string> = {
-  sonho: '#E8B23C',
-  embreve: '#E8714C',
-  planejando: '#2FA39A',
-  jafui: '#7FA86B',
+  sonho: colors.golden,
+  embreve: colors.coral,
+  planejando: colors.teal,
+  jafui: colors.green,
 }
 
 export const STATUS_BG: Record<DestinationStatus, string> = {
-  sonho: '#FBF0D6',
-  embreve: '#FBE3DA',
-  planejando: '#D9F0ED',
-  jafui: '#E6EFDF',
+  sonho: colors['status-sonho'],
+  embreve: colors['status-embreve'],
+  planejando: colors['status-planejando'],
+  jafui: colors['status-jafui'],
 }
 
 export const STATUS_LABELS: Record<DestinationStatus, string> = {

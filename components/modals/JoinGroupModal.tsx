@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useApp } from '@/contexts/AppContext'
 import { ModalOverlay } from './CreateGroupModal'
+import { colors } from '@/lib/colors'
 
 export default function JoinGroupModal() {
   const { dispatch, joinSpace, showToast } = useApp()
@@ -28,10 +29,10 @@ export default function JoinGroupModal() {
 
   return (
     <ModalOverlay onClose={handleClose}>
-      <h2 style={{ fontFamily: 'var(--font-bricolage), sans-serif', fontWeight: 800, fontSize: 24, color: '#2B2622', letterSpacing: '-0.02em', marginBottom: 8 }}>
+      <h2 style={{ fontFamily: 'var(--font-bricolage), sans-serif', fontWeight: 800, fontSize: 24, color: colors.ink, letterSpacing: '-0.02em', marginBottom: 8 }}>
         Entrar com um link
       </h2>
-      <p style={{ fontSize: 14, color: '#8A8178', marginBottom: 22 }}>
+      <p style={{ fontSize: 14, color: colors['text-soft'], marginBottom: 22 }}>
         Cole o link de convite ou o código do grupo.
       </p>
 
@@ -42,18 +43,18 @@ export default function JoinGroupModal() {
         autoFocus
         style={{
           width: '100%', padding: '11px 14px', borderRadius: 11,
-          border: `1.5px solid ${error ? '#E8714C' : '#EFE6D7'}`, background: '#FBF9F4',
-          fontSize: 14, color: '#2B2622', fontFamily: 'inherit',
+          border: `1.5px solid ${error ? colors.coral : colors.border}`, background: colors['input-bg'],
+          fontSize: 14, color: colors.ink, fontFamily: 'inherit',
           marginBottom: error ? 8 : 20,
         }}
       />
-      {error && <p style={{ fontSize: 13, color: '#E8714C', marginBottom: 16 }}>{error}</p>}
+      {error && <p style={{ fontSize: 13, color: colors.coral, marginBottom: 16 }}>{error}</p>}
 
       <div style={{ display: 'flex', gap: 10 }}>
         <button onClick={handleJoin} disabled={joining || !code.trim()}
           style={{
             flex: 1, padding: '12px', borderRadius: 12, border: 'none',
-            background: '#E8714C', color: '#fff', fontSize: 15, fontWeight: 700,
+            background: colors.coral, color: '#fff', fontSize: 15, fontWeight: 700,
             cursor: !code.trim() || joining ? 'not-allowed' : 'pointer',
             opacity: !code.trim() || joining ? .5 : 1,
             boxShadow: '0 8px 18px -8px rgba(232,113,76,.8)',
@@ -62,7 +63,7 @@ export default function JoinGroupModal() {
           {joining ? 'Entrando...' : 'Entrar no grupo'}
         </button>
         <button onClick={handleClose}
-          style={{ padding: '12px 20px', borderRadius: 12, border: '1.5px solid #EFE6D7', background: '#fff', color: '#8A8178', fontSize: 15, fontWeight: 600, cursor: 'pointer' }}
+          style={{ padding: '12px 20px', borderRadius: 12, border: `1.5px solid ${colors.border}`, background: '#fff', color: colors['text-soft'], fontSize: 15, fontWeight: 600, cursor: 'pointer' }}
         >
           Cancelar
         </button>

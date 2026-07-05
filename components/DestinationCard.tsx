@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useApp } from '@/contexts/AppContext'
 import type { Destination } from '@/lib/types'
 import { STATUS_COLORS, STATUS_LABELS, COVER_GRADIENTS } from '@/lib/types'
+import { colors } from '@/lib/colors'
 import { Calendar, Heart } from 'lucide-react'
 
 interface Props {
@@ -34,7 +35,7 @@ export default function DestinationCard({ destination, index = 0 }: Props) {
       onClick={() => navigate('detail', destination)}
       className="group cursor-pointer"
       style={{
-        background: '#fff', border: '1px solid #EFE6D7',
+        background: '#fff', border: `1px solid ${colors.border}`,
         borderRadius: 20, overflow: 'hidden',
         animation: `boraPop .5s cubic-bezier(.2,.8,.2,1) ${index * 0.05}s both`,
         transition: 'transform .2s, box-shadow .2s',
@@ -135,9 +136,9 @@ export default function DestinationCard({ destination, index = 0 }: Props) {
       <div style={{ padding: '12px 14px', display: 'flex', flexDirection: 'column', gap: 8 }}>
         {/* Row 1: country + cost */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <span style={{ fontSize: 13, color: '#8A8178', fontWeight: 500 }}>{destination.country}</span>
+          <span style={{ fontSize: 13, color: colors['text-soft'], fontWeight: 500 }}>{destination.country}</span>
           {destination.cost > 0 && (
-            <span style={{ fontSize: 13, fontWeight: 700, color: '#2B2622' }}>
+            <span style={{ fontSize: 13, fontWeight: 700, color: colors.ink }}>
               R$ {destination.cost.toLocaleString('pt-BR')}
             </span>
           )}
@@ -146,8 +147,8 @@ export default function DestinationCard({ destination, index = 0 }: Props) {
         {/* Row 2: date + avatars */}
         {(destination.target_date || destination.date_label) && (
           <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-            <Calendar size={12} style={{ color: '#8A8178', flexShrink: 0 }} />
-            <span style={{ fontSize: 12, color: '#8A8178' }}>
+            <Calendar size={12} style={{ color: colors['text-soft'], flexShrink: 0 }} />
+            <span style={{ fontSize: 12, color: colors['text-soft'] }}>
               {destination.date_label || destination.target_date}
             </span>
           </div>
@@ -157,16 +158,16 @@ export default function DestinationCard({ destination, index = 0 }: Props) {
         {!isVisited && destination.cost > 0 && (
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
-              <span style={{ fontSize: 11, color: '#8A8178', letterSpacing: '.06em', textTransform: 'uppercase' }}>cofrinho</span>
-              <span style={{ fontSize: 11, fontWeight: 600, color: '#2B2622' }}>
+              <span style={{ fontSize: 11, color: colors['text-soft'], letterSpacing: '.06em', textTransform: 'uppercase' }}>cofrinho</span>
+              <span style={{ fontSize: 11, fontWeight: 600, color: colors.ink }}>
                 R$ {destination.saved.toLocaleString('pt-BR')}
               </span>
             </div>
-            <div style={{ height: 4, background: '#EFE6D7', borderRadius: 2, overflow: 'hidden' }}>
+            <div style={{ height: 4, background: colors.border, borderRadius: 2, overflow: 'hidden' }}>
               <div
                 style={{
                   height: '100%', borderRadius: 2,
-                  background: '#2FA39A',
+                  background: colors.teal,
                   width: `${savingsPct}%`,
                   animation: 'boraGrow .85s cubic-bezier(.2,.8,.2,1) both',
                   transformOrigin: 'left',

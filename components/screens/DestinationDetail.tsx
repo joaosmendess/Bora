@@ -4,6 +4,7 @@ import { useState, useRef } from 'react'
 import { useApp } from '@/contexts/AppContext'
 import type { DestinationStatus, ChecklistItem } from '@/lib/types'
 import { STATUS_COLORS, STATUS_LABELS, COVER_GRADIENTS } from '@/lib/types'
+import { colors } from '@/lib/colors'
 import { uploadImage } from '@/lib/storage'
 import { ArrowLeft, Clock, Heart, Star, ImagePlus, Send, Plus, Trash2, Loader2 } from 'lucide-react'
 import ItinerarySection from './ItinerarySection'
@@ -112,7 +113,7 @@ export default function DestinationDetail() {
         style={{
           display: 'flex', alignItems: 'center', gap: 6,
           background: 'none', border: 'none', cursor: 'pointer',
-          color: '#8A8178', fontSize: 14, fontWeight: 500, marginBottom: 20,
+          color: colors['text-soft'], fontSize: 14, fontWeight: 500, marginBottom: 20,
         }}
       >
         <ArrowLeft size={16} />
@@ -137,7 +138,7 @@ export default function DestinationDetail() {
               {STATUS_LABELS[d.status]}
             </div>
             {daysLeft !== null && (
-              <div style={{ background: '#2B2622', color: '#fff', borderRadius: 30, padding: '4px 12px', fontSize: 12, fontWeight: 600, display: 'flex', alignItems: 'center', gap: 5 }}>
+              <div style={{ background: colors.ink, color: '#fff', borderRadius: 30, padding: '4px 12px', fontSize: 12, fontWeight: 600, display: 'flex', alignItems: 'center', gap: 5 }}>
                 <Clock size={11} />
                 {daysLeft > 0 ? `${daysLeft} dias` : daysLeft === 0 ? 'hoje!' : 'passou'}
               </div>
@@ -223,7 +224,7 @@ export default function DestinationDetail() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
           {/* Memory (jafui only) */}
           {isVisited && (
-            <Card style={{ background: '#FBF0D6', border: '1px solid #E8B23C30' }}>
+            <Card style={{ background: colors['status-sonho'], border: `1px solid ${colors.golden}30` }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
                 <Label>Lembrança</Label>
                 <div style={{ display: 'flex', gap: 4 }}>
@@ -231,7 +232,7 @@ export default function DestinationDetail() {
                     <button key={star} onClick={() => updateDestination(d.id, { rating: star })}
                       style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
                     >
-                      <Star size={18} fill={star <= d.rating ? '#E8B23C' : 'transparent'} stroke="#E8B23C" />
+                      <Star size={18} fill={star <= d.rating ? colors.golden : 'transparent'} stroke={colors.golden} />
                     </button>
                   ))}
                 </div>
@@ -255,9 +256,9 @@ export default function DestinationDetail() {
                 {/* Ring */}
                 <div style={{ position: 'relative', width: 96, height: 96, flexShrink: 0 }}>
                   <svg width="96" height="96" viewBox="0 0 96 96">
-                    <circle cx="48" cy="48" r="38" fill="none" stroke="#EFE6D7" strokeWidth="9" />
+                    <circle cx="48" cy="48" r="38" fill="none" stroke={colors.border} strokeWidth="9" />
                     <circle
-                      cx="48" cy="48" r="38" fill="none" stroke="#2FA39A" strokeWidth="9"
+                      cx="48" cy="48" r="38" fill="none" stroke={colors.teal} strokeWidth="9"
                       strokeDasharray={`${2 * Math.PI * 38 * savingsPct / 100} ${2 * Math.PI * 38}`}
                       strokeLinecap="round"
                       transform="rotate(-90 48 48)"
@@ -265,14 +266,14 @@ export default function DestinationDetail() {
                     />
                   </svg>
                   <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                    <span style={{ fontFamily: 'var(--font-bricolage), sans-serif', fontWeight: 800, fontSize: 20, color: '#2B2622' }}>{savingsPct}%</span>
+                    <span style={{ fontFamily: 'var(--font-bricolage), sans-serif', fontWeight: 800, fontSize: 20, color: colors.ink }}>{savingsPct}%</span>
                   </div>
                 </div>
                 <div>
-                  <p style={{ fontSize: 22, fontWeight: 800, fontFamily: 'var(--font-bricolage), sans-serif', color: '#2B2622' }}>
+                  <p style={{ fontSize: 22, fontWeight: 800, fontFamily: 'var(--font-bricolage), sans-serif', color: colors.ink }}>
                     R$ {d.saved.toLocaleString('pt-BR')}
                   </p>
-                  <p style={{ fontSize: 13, color: '#8A8178' }}>
+                  <p style={{ fontSize: 13, color: colors['text-soft'] }}>
                     de R$ {d.cost.toLocaleString('pt-BR')}
                   </p>
                 </div>
@@ -280,14 +281,14 @@ export default function DestinationDetail() {
               <div style={{ display: 'flex', gap: 6, marginBottom: 6, flexWrap: 'wrap' }}>
                 {[500, 1000, 2000].map(amt => (
                   <button key={amt} onClick={() => handleSaveAmount(amt)}
-                    style={{ padding: '6px 12px', borderRadius: 8, border: '1.5px solid #2FA39A', background: '#fff', fontSize: 12, fontWeight: 700, color: '#2FA39A', cursor: 'pointer' }}
+                    style={{ padding: '6px 12px', borderRadius: 8, border: `1.5px solid ${colors.teal}`, background: '#fff', fontSize: 12, fontWeight: 700, color: colors.teal, cursor: 'pointer' }}
                   >
                     +{amt >= 1000 ? `${amt/1000}k` : amt}
                   </button>
                 ))}
                 {[500, 1000].map(amt => (
                   <button key={-amt} onClick={() => handleSaveAmount(-amt)}
-                    style={{ padding: '6px 12px', borderRadius: 8, border: '1.5px solid #EFE6D7', background: '#fff', fontSize: 12, fontWeight: 700, color: '#B0917A', cursor: 'pointer' }}
+                    style={{ padding: '6px 12px', borderRadius: 8, border: `1.5px solid ${colors.border}`, background: '#fff', fontSize: 12, fontWeight: 700, color: colors['text-muted'], cursor: 'pointer' }}
                   >
                     -{amt >= 1000 ? `${amt/1000}k` : amt}
                   </button>
@@ -300,7 +301,7 @@ export default function DestinationDetail() {
                   style={{ ...inputStyle, flex: 1 }}
                 />
                 <button onClick={handleCustomSave}
-                  style={{ padding: '8px 14px', borderRadius: 11, background: '#2FA39A', color: '#fff', border: 'none', fontWeight: 700, fontSize: 13, cursor: 'pointer' }}
+                  style={{ padding: '8px 14px', borderRadius: 11, background: colors.teal, color: '#fff', border: 'none', fontWeight: 700, fontSize: 13, cursor: 'pointer' }}
                 >
                   Adicionar
                 </button>
@@ -325,8 +326,8 @@ export default function DestinationDetail() {
                   style={{
                     padding: '6px 12px', borderRadius: 8, border: 'none', cursor: 'pointer',
                     fontSize: 12, fontWeight: 600,
-                    background: d.status === s ? STATUS_COLORS[s] : '#F1E9DC',
-                    color: d.status === s ? '#fff' : '#8A8178',
+                    background: d.status === s ? STATUS_COLORS[s] : colors['tab-bg'],
+                    color: d.status === s ? '#fff' : colors['text-soft'],
                     transition: 'all .15s',
                   }}
                 >
@@ -340,23 +341,23 @@ export default function DestinationDetail() {
           <Card>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
               <Label>Checklist</Label>
-              <span style={{ fontSize: 12, fontWeight: 600, color: '#8A8178' }}>{checklistDone}/{checklistTotal}</span>
+              <span style={{ fontSize: 12, fontWeight: 600, color: colors['text-soft'] }}>{checklistDone}/{checklistTotal}</span>
             </div>
             {checklistTotal > 0 && (
-              <div style={{ height: 4, background: '#EFE6D7', borderRadius: 2, overflow: 'hidden', marginBottom: 12 }}>
-                <div style={{ height: '100%', borderRadius: 2, background: '#2FA39A', width: `${checklistPct}%`, transition: 'width .4s ease' }} />
+              <div style={{ height: 4, background: colors.border, borderRadius: 2, overflow: 'hidden', marginBottom: 12 }}>
+                <div style={{ height: '100%', borderRadius: 2, background: colors.teal, width: `${checklistPct}%`, transition: 'width .4s ease' }} />
               </div>
             )}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
               {d.checklist_items?.map((item: ChecklistItem) => (
                 <div key={item.id} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                   <input type="checkbox" checked={item.done} onChange={() => toggleChecklist(item)} style={{ cursor: 'pointer', flexShrink: 0 }} />
-                  <span style={{ flex: 1, fontSize: 14, color: item.done ? '#B0917A' : '#2B2622', textDecoration: item.done ? 'line-through' : 'none', transition: 'all .15s' }}>
+                  <span style={{ flex: 1, fontSize: 14, color: item.done ? colors['text-muted'] : colors.ink, textDecoration: item.done ? 'line-through' : 'none', transition: 'all .15s' }}>
                     {item.text}
                   </span>
                   <button
                     onClick={() => deleteChecklistItem(item.id, d.id)}
-                    style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#C8B8A8', padding: '2px 4px', flexShrink: 0, display: 'flex', alignItems: 'center' }}
+                    style={{ background: 'none', border: 'none', cursor: 'pointer', color: colors['text-faint'], padding: '2px 4px', flexShrink: 0, display: 'flex', alignItems: 'center' }}
                     title="Remover tarefa"
                   >
                     <Trash2 size={12} />
@@ -372,7 +373,7 @@ export default function DestinationDetail() {
                 style={{ ...inputStyle, flex: 1 }}
               />
               <button onClick={handleAddTask}
-                style={{ padding: '8px 12px', borderRadius: 11, background: '#2FA39A', color: '#fff', border: 'none', cursor: 'pointer' }}
+                style={{ padding: '8px 12px', borderRadius: 11, background: colors.teal, color: '#fff', border: 'none', cursor: 'pointer' }}
               >
                 <Plus size={16} />
               </button>
@@ -383,22 +384,22 @@ export default function DestinationDetail() {
           {!confirmDelete ? (
             <button
               onClick={() => setConfirmDelete(true)}
-              style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'none', border: 'none', cursor: 'pointer', color: '#B0917A', fontSize: 13 }}
+              style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'none', border: 'none', cursor: 'pointer', color: colors['text-muted'], fontSize: 13 }}
             >
               <Trash2 size={14} /> Excluir destino
             </button>
           ) : (
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: '#FFF4F2', border: '1px solid #FCC', borderRadius: 10, padding: '10px 14px' }}>
-              <span style={{ fontSize: 13, color: '#2B2622', flex: 1 }}>Excluir permanentemente?</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: colors['danger-bg'], border: '1px solid #FCC', borderRadius: 10, padding: '10px 14px' }}>
+              <span style={{ fontSize: 13, color: colors.ink, flex: 1 }}>Excluir permanentemente?</span>
               <button
                 onClick={() => deleteDestination(d.id)}
-                style={{ padding: '5px 12px', borderRadius: 8, border: 'none', background: '#E8714C', color: '#fff', fontSize: 12, fontWeight: 700, cursor: 'pointer' }}
+                style={{ padding: '5px 12px', borderRadius: 8, border: 'none', background: colors.coral, color: '#fff', fontSize: 12, fontWeight: 700, cursor: 'pointer' }}
               >
                 Excluir
               </button>
               <button
                 onClick={() => setConfirmDelete(false)}
-                style={{ padding: '5px 10px', borderRadius: 8, border: '1px solid #EFE6D7', background: '#fff', color: '#8A8178', fontSize: 12, fontWeight: 600, cursor: 'pointer' }}
+                style={{ padding: '5px 10px', borderRadius: 8, border: `1px solid ${colors.border}`, background: '#fff', color: colors['text-soft'], fontSize: 12, fontWeight: 600, cursor: 'pointer' }}
               >
                 Cancelar
               </button>
@@ -428,11 +429,11 @@ export default function DestinationDetail() {
                     style={{
                       height: 116, borderRadius: 10,
                       backgroundImage: photo ? `url(${photo.url})` : undefined,
-                      backgroundColor: photo ? undefined : '#F1E9DC',
+                      backgroundColor: photo ? undefined : colors['tab-bg'],
                       backgroundSize: 'cover', backgroundPosition: 'center',
-                      border: '1.5px dashed #EBE1D2',
+                      border: `1.5px dashed ${colors['border-alt']}`,
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      cursor: photo ? 'default' : 'pointer', color: '#B0917A',
+                      cursor: photo ? 'default' : 'pointer', color: colors['text-muted'],
                       position: 'relative', overflow: 'hidden',
                     }}
                   >
@@ -442,7 +443,7 @@ export default function DestinationDetail() {
                       </div>
                     )}
                     {!photo && !isUploading && (
-                      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, color: '#B0917A' }}>
+                      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, color: colors['text-muted'] }}>
                         <ImagePlus size={18} />
                         <span style={{ fontSize: 10, fontWeight: 600 }}>Adicionar foto</span>
                       </div>
@@ -478,13 +479,13 @@ export default function DestinationDetail() {
             <Label>Comentários</Label>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginTop: 10, marginBottom: 14 }}>
               {d.comments?.length === 0 && (
-                <p style={{ fontSize: 13, color: '#B0917A' }}>Nenhum comentário ainda.</p>
+                <p style={{ fontSize: 13, color: colors['text-muted'] }}>Nenhum comentário ainda.</p>
               )}
               {d.comments?.map(comment => (
                 <div key={comment.id} style={{ display: 'flex', gap: 8 }}>
                   <div style={{
                     width: 30, height: 30, borderRadius: '50%',
-                    background: comment.author?.avatar_color || '#8A8178',
+                    background: comment.author?.avatar_color || colors['text-soft'],
                     flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center',
                     fontSize: 12, fontWeight: 700, color: '#fff',
                   }}>
@@ -492,12 +493,12 @@ export default function DestinationDetail() {
                   </div>
                   <div>
                     <div style={{ display: 'flex', gap: 8, alignItems: 'baseline', marginBottom: 2 }}>
-                      <span style={{ fontSize: 13, fontWeight: 700, color: '#2B2622' }}>{comment.author?.name || 'Você'}</span>
-                      <span style={{ fontSize: 11, color: '#B0917A' }}>
+                      <span style={{ fontSize: 13, fontWeight: 700, color: colors.ink }}>{comment.author?.name || 'Você'}</span>
+                      <span style={{ fontSize: 11, color: colors['text-muted'] }}>
                         {new Date(comment.created_at).toLocaleDateString('pt-BR')}
                       </span>
                     </div>
-                    <p style={{ fontSize: 14, color: '#2B2622' }}>{comment.text}</p>
+                    <p style={{ fontSize: 14, color: colors.ink }}>{comment.text}</p>
                   </div>
                 </div>
               ))}
@@ -511,7 +512,7 @@ export default function DestinationDetail() {
                 style={{ ...inputStyle, flex: 1 }}
               />
               <button onClick={handleAddComment}
-                style={{ padding: '8px 12px', borderRadius: 11, background: '#E8714C', color: '#fff', border: 'none', cursor: 'pointer' }}
+                style={{ padding: '8px 12px', borderRadius: 11, background: colors.coral, color: '#fff', border: 'none', cursor: 'pointer' }}
               >
                 <Send size={15} />
               </button>
@@ -529,34 +530,34 @@ export default function DestinationDetail() {
 
 function Card({ children, style }: { children: React.ReactNode; style?: React.CSSProperties }) {
   return (
-    <div style={{ background: '#fff', border: '1px solid #EFE6D7', borderRadius: 16, padding: '18px 20px', ...style }}>
+    <div style={{ background: '#fff', border: `1px solid ${colors.border}`, borderRadius: 16, padding: '18px 20px', ...style }}>
       {children}
     </div>
   )
 }
 
 function Label({ children }: { children: React.ReactNode }) {
-  return <span style={{ fontSize: 12, fontWeight: 700, color: '#8A8178', textTransform: 'uppercase', letterSpacing: '.1em' }}>{children}</span>
+  return <span style={{ fontSize: 12, fontWeight: 700, color: colors['text-soft'], textTransform: 'uppercase', letterSpacing: '.1em' }}>{children}</span>
 }
 
 function FactItem({ label, value }: { label: string; value: string }) {
   return (
-    <div style={{ background: '#FBF9F4', borderRadius: 10, padding: '10px 12px' }}>
-      <div style={{ fontSize: 11, color: '#8A8178', textTransform: 'uppercase', letterSpacing: '.08em', marginBottom: 3 }}>{label}</div>
-      <div style={{ fontSize: 14, fontWeight: 600, color: '#2B2622' }}>{value}</div>
+    <div style={{ background: colors['input-bg'], borderRadius: 10, padding: '10px 12px' }}>
+      <div style={{ fontSize: 11, color: colors['text-soft'], textTransform: 'uppercase', letterSpacing: '.08em', marginBottom: 3 }}>{label}</div>
+      <div style={{ fontSize: 14, fontWeight: 600, color: colors.ink }}>{value}</div>
     </div>
   )
 }
 
 const inputStyle: React.CSSProperties = {
   width: '100%', padding: '9px 13px', borderRadius: 11,
-  border: '1.5px solid #EFE6D7', background: '#FBF9F4',
-  fontSize: 14, color: '#2B2622', fontFamily: 'inherit',
+  border: `1.5px solid ${colors.border}`, background: colors['input-bg'],
+  fontSize: 14, color: colors.ink, fontFamily: 'inherit',
 }
 
 const textareaStyle: React.CSSProperties = {
   width: '100%', padding: '10px 14px', borderRadius: 11,
-  border: '1.5px solid #EFE6D7', background: '#FBF9F4',
-  fontSize: 14, color: '#2B2622', fontFamily: 'inherit',
+  border: `1.5px solid ${colors.border}`, background: colors['input-bg'],
+  fontSize: 14, color: colors.ink, fontFamily: 'inherit',
   resize: 'vertical',
 }

@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { supabase } from '@/lib/supabase'
 import { Loader2 } from 'lucide-react'
+import { colors } from '@/lib/colors'
 
 export default function Login() {
   const [loading, setLoading] = useState(false)
@@ -27,7 +28,7 @@ export default function Login() {
             className="relative overflow-hidden flex flex-col justify-end p-10 min-h-[380px]"
             style={{
               backgroundImage: `
-                linear-gradient(150deg, #E8714C, #E8924C, #E8B23C),
+                linear-gradient(150deg, ${colors.coral}, ${colors['coral-light']}, ${colors.golden}),
                 radial-gradient(circle, rgba(255,255,255,.18) 1px, transparent 1px)
               `,
               backgroundSize: '100% 100%, 20px 20px',
@@ -106,14 +107,14 @@ export default function Login() {
                   fontFamily: 'var(--font-bricolage), sans-serif',
                   fontWeight: 800,
                   fontSize: 28,
-                  color: '#2B2622',
+                  color: colors.ink,
                   letterSpacing: '-0.02em',
                   marginBottom: 8,
                 }}
               >
                 Entrar na sua conta
               </h2>
-              <p style={{ color: '#8A8178', fontSize: 15 }}>
+              <p style={{ color: colors['text-soft'], fontSize: 15 }}>
                 Organize seus destinos dos sonhos, sozinho ou com amigos.
               </p>
             </div>
@@ -124,13 +125,13 @@ export default function Login() {
               className="w-full flex items-center gap-3 justify-center transition-all hover:shadow-md active:scale-[.98]"
               style={{
                 background: '#fff',
-                border: '1.5px solid #E6DCCB',
+                border: `1.5px solid ${colors['border-alt']}`,
                 borderRadius: 14,
                 padding: '14px 20px',
                 cursor: loading ? 'not-allowed' : 'pointer',
                 fontSize: 15,
                 fontWeight: 600,
-                color: '#2B2622',
+                color: colors.ink,
                 opacity: loading ? 0.7 : 1,
               }}
             >
@@ -147,7 +148,7 @@ export default function Login() {
               {loading ? 'Entrando...' : 'Continuar com o Google'}
             </button>
 
-            <p style={{ fontSize: 13, color: '#B0917A', textAlign: 'center' }}>
+            <p style={{ fontSize: 13, color: colors['text-muted'], textAlign: 'center' }}>
               Ao entrar você concorda com os nossos termos e política de privacidade.
             </p>
           </div>

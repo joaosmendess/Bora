@@ -5,6 +5,7 @@ import { useApp } from '@/contexts/AppContext'
 import type { Destination, DestinationStatus } from '@/lib/types'
 import { STATUS_COLORS, STATUS_LABELS, STATUS_BG, COVER_GRADIENTS } from '@/lib/types'
 import { GripVertical, ChevronDown } from 'lucide-react'
+import { colors } from '@/lib/colors'
 
 const COLUMNS: { status: DestinationStatus }[] = [
   { status: 'sonho' },
@@ -33,7 +34,7 @@ function GoalCard({
       draggable
       onDragStart={() => onDragStart(d.id)}
       style={{
-        background: '#fff', border: '1px solid #EFE6D7', borderRadius: 12,
+        background: '#fff', border: `1px solid ${colors.border}`, borderRadius: 12,
         padding: '12px 14px', marginBottom: 8,
         transition: 'box-shadow .15s, opacity .15s',
         opacity: isDragging ? 0.4 : 1,
@@ -45,7 +46,7 @@ function GoalCard({
     >
       {/* Drag handle */}
       <div
-        style={{ cursor: 'grab', color: '#C8B8A8', marginTop: 2, flexShrink: 0 }}
+        style={{ cursor: 'grab', color: colors['text-faint'], marginTop: 2, flexShrink: 0 }}
         title="Arraste para mover"
       >
         <GripVertical size={16} />
@@ -63,11 +64,11 @@ function GoalCard({
 
       {/* Info */}
       <div style={{ flex: 1, minWidth: 0, cursor: 'pointer' }} onClick={() => navigate('detail', d)}>
-        <p style={{ fontFamily: 'var(--font-bricolage), sans-serif', fontWeight: 700, fontSize: 14, color: '#2B2622', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+        <p style={{ fontFamily: 'var(--font-bricolage), sans-serif', fontWeight: 700, fontSize: 14, color: colors.ink, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
           {d.name}
         </p>
-        <p style={{ fontSize: 12, color: '#8A8178' }}>{d.country}</p>
-        {d.cost > 0 && <p style={{ fontSize: 12, fontWeight: 600, color: '#2B2622', marginTop: 2 }}>R$ {d.cost.toLocaleString('pt-BR')}</p>}
+        <p style={{ fontSize: 12, color: colors['text-soft'] }}>{d.country}</p>
+        {d.cost > 0 && <p style={{ fontSize: 12, fontWeight: 600, color: colors.ink, marginTop: 2 }}>R$ {d.cost.toLocaleString('pt-BR')}</p>}
       </div>
 
       {/* Mobile status picker */}
@@ -90,7 +91,7 @@ function GoalCard({
           <div
             style={{
               position: 'absolute', right: 0, top: 'calc(100% + 4px)',
-              background: '#fff', border: '1px solid #EFE6D7', borderRadius: 10,
+              background: '#fff', border: `1px solid ${colors.border}`, borderRadius: 10,
               boxShadow: '0 8px 20px rgba(43,38,34,.15)',
               overflow: 'hidden', zIndex: 10, minWidth: 120,
             }}
@@ -146,26 +147,26 @@ export default function Goals() {
           style={{
             fontFamily: 'var(--font-bricolage), sans-serif',
             fontWeight: 800, fontSize: 'clamp(24px,3.5vw,36px)',
-            letterSpacing: '-0.03em', color: '#2B2622',
+            letterSpacing: '-0.03em', color: colors.ink,
           }}
         >
           Organizar destinos
         </h1>
-        <p style={{ fontSize: 13, color: '#B0917A' }}>
+        <p style={{ fontSize: 13, color: colors['text-muted'] }}>
           <span className="hidden-mobile">Arraste entre colunas · </span>
           Toque no status para mudar
         </p>
       </div>
 
       {destinations.length === 0 && (
-        <div style={{ textAlign: 'center', padding: '60px 20px', color: '#8A8178' }}>
-          <p style={{ fontSize: 15, fontWeight: 600, color: '#2B2622', marginBottom: 6 }}>Nenhum destino ainda</p>
+        <div style={{ textAlign: 'center', padding: '60px 20px', color: colors['text-soft'] }}>
+          <p style={{ fontSize: 15, fontWeight: 600, color: colors.ink, marginBottom: 6 }}>Nenhum destino ainda</p>
           <p style={{ fontSize: 13, marginBottom: 16 }}>Adicione destinos para organizá-los aqui.</p>
           <button
             onClick={() => navigate('add')}
             style={{
               display: 'inline-flex', alignItems: 'center', gap: 6,
-              background: '#E8714C', color: '#fff', border: 'none',
+              background: colors.coral, color: '#fff', border: 'none',
               borderRadius: 12, padding: '9px 18px', fontSize: 13, fontWeight: 600, cursor: 'pointer',
               boxShadow: '0 8px 18px -8px rgba(232,113,76,.8)',
             }}
@@ -220,7 +221,7 @@ export default function Goals() {
               </div>
 
               {colDests.length === 0 && (
-                <p style={{ fontSize: 13, color: '#B0917A', textAlign: 'center', padding: '20px 0', fontStyle: 'italic' }}>
+                <p style={{ fontSize: 13, color: colors['text-muted'], textAlign: 'center', padding: '20px 0', fontStyle: 'italic' }}>
                   {draggingId ? 'solte aqui' : 'nenhum destino'}
                 </p>
               )}

@@ -10,6 +10,7 @@ import Agenda from '@/components/screens/Agenda'
 import Goals from '@/components/screens/Goals'
 import Group from '@/components/screens/Group'
 import Navbar from '@/components/Navbar'
+import BottomNav from '@/components/BottomNav'
 import Toast from '@/components/Toast'
 import CreateGroupModal from '@/components/modals/CreateGroupModal'
 import JoinGroupModal from '@/components/modals/JoinGroupModal'
@@ -145,7 +146,10 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <ScreenContent />
+      <div className="pb-[calc(76px+env(safe-area-inset-bottom))] md:pb-0">
+        <ScreenContent />
+      </div>
+      <BottomNav />
       <Toast />
       {modal === 'create-group' && <CreateGroupModal />}
       {modal === 'join-group' && <JoinGroupModal />}

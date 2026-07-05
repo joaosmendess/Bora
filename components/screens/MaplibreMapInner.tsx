@@ -5,6 +5,7 @@ import maplibregl from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import type { Destination, Screen } from '@/lib/types'
 import { STATUS_COLORS, STATUS_LABELS } from '@/lib/types'
+import { colors } from '@/lib/colors'
 
 // [lat, lng] format
 const COORDS: Record<string, [number, number]> = {
@@ -219,7 +220,7 @@ export default function MaplibreMapInner({ destinations, navigate }: Props) {
       label.style.cssText = [
         'white-space:nowrap',
         'background:rgba(251,247,239,.96)',
-        'color:#2B2622',
+        `color:${colors.ink}`,
         'font-size:11px',
         'font-weight:700',
         'padding:3px 9px',
@@ -289,7 +290,7 @@ export default function MaplibreMapInner({ destinations, navigate }: Props) {
           background: rgba(251,247,239,.7) !important;
           border-radius: 6px !important;
         }
-        .maplibregl-ctrl-attrib a { color: #8A8178 !important; }
+        .maplibregl-ctrl-attrib a { color: ${colors['text-soft']} !important; }
       `}</style>
 
       {/* Globe */}
@@ -307,7 +308,7 @@ export default function MaplibreMapInner({ destinations, navigate }: Props) {
 
       {/* Hint */}
       {mapLoaded && (
-        <p style={{ fontSize: 11, color: '#B0A898', marginBottom: 10, fontWeight: 500 }}>
+        <p style={{ fontSize: 11, color: colors['text-muted'], marginBottom: 10, fontWeight: 500 }}>
           Arraste para girar · scroll para zoom · clique num pin para abrir
         </p>
       )}
@@ -327,8 +328,8 @@ export default function MaplibreMapInner({ destinations, navigate }: Props) {
               <div style={{ width: 10, height: 10, borderRadius: '50%', background: STATUS_COLORS[hoveredDest.status] }} />
             </div>
             <div style={{ flex: 1, minWidth: 0 }}>
-              <div style={{ fontWeight: 700, fontSize: 14, color: '#2B2622' }}>{hoveredDest.name}</div>
-              <div style={{ fontSize: 12, color: '#8A8178', marginTop: 2 }}>
+              <div style={{ fontWeight: 700, fontSize: 14, color: colors.ink }}>{hoveredDest.name}</div>
+              <div style={{ fontSize: 12, color: colors['text-soft'], marginTop: 2 }}>
                 {hoveredDest.country}
                 <span style={{ margin: '0 5px', opacity: 0.35 }}>·</span>
                 {STATUS_LABELS[hoveredDest.status]}
@@ -338,33 +339,33 @@ export default function MaplibreMapInner({ destinations, navigate }: Props) {
               </div>
             </div>
             {hoveredDest.cost > 0 && (
-              <div style={{ fontSize: 13, fontWeight: 700, color: '#2B2622', flexShrink: 0 }}>
+              <div style={{ fontSize: 13, fontWeight: 700, color: colors.ink, flexShrink: 0 }}>
                 R$ {hoveredDest.cost.toLocaleString('pt-BR')}
               </div>
             )}
           </div>
         ) : (
-          <p style={{ fontSize: 12, color: '#B0A898', fontWeight: 500, paddingTop: 6 }}>
+          <p style={{ fontSize: 12, color: colors['text-muted'], fontWeight: 500, paddingTop: 6 }}>
             Passe o mouse sobre um pin para ver os detalhes
           </p>
         )}
       </div>
 
       {unmapped > 0 && (
-        <p style={{ fontSize: 12, color: '#B0A898', marginBottom: 14 }}>
+        <p style={{ fontSize: 12, color: colors['text-muted'], marginBottom: 14 }}>
           {unmapped} destino{unmapped !== 1 ? 's' : ''} sem localização — verifique a grafia do campo País
         </p>
       )}
 
       {/* Legend */}
       <div style={{ display: 'flex', gap: 20, flexWrap: 'wrap', alignItems: 'center' }}>
-        <span style={{ fontSize: 11, fontWeight: 600, color: '#B0A898', textTransform: 'uppercase', letterSpacing: '.06em' }}>
+        <span style={{ fontSize: 11, fontWeight: 600, color: colors['text-muted'], textTransform: 'uppercase', letterSpacing: '.06em' }}>
           Status
         </span>
         {(['sonho', 'embreve', 'planejando', 'jafui'] as const).map(s => (
           <div key={s} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
             <div style={{ width: 8, height: 8, borderRadius: '50%', background: STATUS_COLORS[s], boxShadow: `0 0 0 2.5px ${STATUS_COLORS[s]}30` }} />
-            <span style={{ fontSize: 12, fontWeight: 600, color: '#8A8178' }}>{STATUS_LABELS[s]}</span>
+            <span style={{ fontSize: 12, fontWeight: 600, color: colors['text-soft'] }}>{STATUS_LABELS[s]}</span>
           </div>
         ))}
       </div>

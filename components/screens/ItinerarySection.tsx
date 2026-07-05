@@ -7,6 +7,7 @@ import {
   ShoppingBag, Star, Circle, Pencil, Check, X, CalendarDays,
 } from 'lucide-react'
 import type { ItineraryCategory } from '@/lib/types'
+import { colors } from '@/lib/colors'
 
 interface IItem {
   id: string
@@ -26,13 +27,13 @@ interface IDay {
 }
 
 const CATS: { key: ItineraryCategory; Icon: React.ComponentType<{ size?: number; style?: React.CSSProperties }>; color: string; label: string }[] = [
-  { key: 'atracao',     Icon: MapPin,      color: '#2FA39A', label: 'Passeio' },
-  { key: 'alimentacao', Icon: Utensils,    color: '#E8714C', label: 'Alimentação' },
-  { key: 'transporte',  Icon: Plane,       color: '#5B96E8', label: 'Transporte' },
-  { key: 'hospedagem',  Icon: BedDouble,   color: '#A882D4', label: 'Hospedagem' },
-  { key: 'compras',     Icon: ShoppingBag, color: '#E8708A', label: 'Compras' },
-  { key: 'destaque',    Icon: Star,        color: '#E8B23C', label: 'Destaque' },
-  { key: 'outros',      Icon: Circle,      color: '#8A8178', label: 'Outros' },
+  { key: 'atracao',     Icon: MapPin,      color: colors.teal, label: 'Passeio' },
+  { key: 'alimentacao', Icon: Utensils,    color: colors.coral, label: 'Alimentação' },
+  { key: 'transporte',  Icon: Plane,       color: colors.blue, label: 'Transporte' },
+  { key: 'hospedagem',  Icon: BedDouble,   color: colors.purple, label: 'Hospedagem' },
+  { key: 'compras',     Icon: ShoppingBag, color: colors.pink, label: 'Compras' },
+  { key: 'destaque',    Icon: Star,        color: colors.golden, label: 'Destaque' },
+  { key: 'outros',      Icon: Circle,      color: colors['text-soft'], label: 'Outros' },
 ]
 
 function getCat(cat: ItineraryCategory) {
@@ -147,11 +148,11 @@ export default function ItinerarySection({ destinationId }: { destinationId: str
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <span style={{ fontSize: 12, fontWeight: 700, color: '#8A8178', textTransform: 'uppercase', letterSpacing: '.1em' }}>
+          <span style={{ fontSize: 12, fontWeight: 700, color: colors['text-soft'], textTransform: 'uppercase', letterSpacing: '.1em' }}>
             Roteiro
           </span>
           {totalItems > 0 && (
-            <span style={{ fontSize: 12, color: '#B0917A', background: '#F1E9DC', borderRadius: 6, padding: '2px 8px' }}>
+            <span style={{ fontSize: 12, color: colors['text-muted'], background: colors['tab-bg'], borderRadius: 6, padding: '2px 8px' }}>
               {days.length} {days.length === 1 ? 'dia' : 'dias'} · {totalItems} {totalItems === 1 ? 'atividade' : 'atividades'}
             </span>
           )}
@@ -160,7 +161,7 @@ export default function ItinerarySection({ destinationId }: { destinationId: str
           onClick={addDay}
           style={{
             display: 'flex', alignItems: 'center', gap: 6,
-            background: '#E8714C', color: '#fff',
+            background: colors.coral, color: '#fff',
             border: 'none', borderRadius: 10, padding: '7px 14px',
             fontSize: 13, fontWeight: 600, cursor: 'pointer',
             boxShadow: '0 4px 12px -4px rgba(232,113,76,.55)',
@@ -176,13 +177,13 @@ export default function ItinerarySection({ destinationId }: { destinationId: str
       {days.length === 0 && (
         <div
           style={{
-            background: '#fff', border: '1.5px dashed #EBE1D2', borderRadius: 16,
+            background: '#fff', border: `1.5px dashed ${colors['border-alt']}`, borderRadius: 16,
             padding: '44px 24px', textAlign: 'center',
           }}
         >
-          <CalendarDays size={34} style={{ margin: '0 auto 12px', color: '#D4C4B0' }} />
-          <p style={{ fontSize: 15, fontWeight: 600, color: '#8A8178', marginBottom: 5 }}>Nenhum dia no roteiro ainda</p>
-          <p style={{ fontSize: 13, color: '#B0917A' }}>Clique em &quot;Adicionar dia&quot; pra começar a planejar</p>
+          <CalendarDays size={34} style={{ margin: '0 auto 12px', color: colors['border-muted'] }} />
+          <p style={{ fontSize: 15, fontWeight: 600, color: colors['text-soft'], marginBottom: 5 }}>Nenhum dia no roteiro ainda</p>
+          <p style={{ fontSize: 13, color: colors['text-muted'] }}>Clique em &quot;Adicionar dia&quot; pra começar a planejar</p>
         </div>
       )}
 
@@ -191,21 +192,21 @@ export default function ItinerarySection({ destinationId }: { destinationId: str
         {days.map((day, dayIndex) => (
           <div
             key={day.id}
-            style={{ background: '#fff', border: '1px solid #EFE6D7', borderRadius: 16, overflow: 'hidden' }}
+            style={{ background: '#fff', border: `1px solid ${colors.border}`, borderRadius: 16, overflow: 'hidden' }}
           >
             {/* Day header */}
             <div
               style={{
                 display: 'flex', alignItems: 'center', justifyContent: 'space-between',
                 padding: '13px 18px',
-                background: '#FBF9F4',
-                borderBottom: day.items.length > 0 || addingItem === day.id ? '1px solid #F1E9DC' : 'none',
+                background: colors['input-bg'],
+                borderBottom: day.items.length > 0 || addingItem === day.id ? `1px solid ${colors['tab-bg']}` : 'none',
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: 10, minWidth: 0 }}>
                 <span
                   style={{
-                    background: '#E8714C', color: '#fff',
+                    background: colors.coral, color: '#fff',
                     borderRadius: 7, padding: '2px 9px',
                     fontSize: 12, fontWeight: 800, letterSpacing: '.04em',
                     flexShrink: 0,
@@ -225,21 +226,21 @@ export default function ItinerarySection({ destinationId }: { destinationId: str
                         if (e.key === 'Escape') setEditingDay(null)
                       }}
                       style={{
-                        border: '1.5px solid #E8714C', borderRadius: 8, padding: '4px 10px',
-                        fontSize: 14, fontWeight: 600, color: '#2B2622',
+                        border: `1.5px solid ${colors.coral}`, borderRadius: 8, padding: '4px 10px',
+                        fontSize: 14, fontWeight: 600, color: colors.ink,
                         background: '#fff', fontFamily: 'inherit', outline: 'none',
                         width: 200,
                       }}
                     />
                     <button
                       onClick={() => saveDayLabel(day.id)}
-                      style={{ background: '#2FA39A', color: '#fff', border: 'none', borderRadius: 7, padding: '5px 8px', cursor: 'pointer', display: 'flex', alignItems: 'center' }}
+                      style={{ background: colors.teal, color: '#fff', border: 'none', borderRadius: 7, padding: '5px 8px', cursor: 'pointer', display: 'flex', alignItems: 'center' }}
                     >
                       <Check size={14} />
                     </button>
                     <button
                       onClick={() => setEditingDay(null)}
-                      style={{ background: 'none', border: '1px solid #EFE6D7', borderRadius: 7, padding: '5px 8px', cursor: 'pointer', display: 'flex', alignItems: 'center', color: '#8A8178' }}
+                      style={{ background: 'none', border: `1px solid ${colors.border}`, borderRadius: 7, padding: '5px 8px', cursor: 'pointer', display: 'flex', alignItems: 'center', color: colors['text-soft'] }}
                     >
                       <X size={14} />
                     </button>
@@ -249,23 +250,23 @@ export default function ItinerarySection({ destinationId }: { destinationId: str
                     onClick={() => { setEditingDay(day.id); setEditingLabel(day.label) }}
                     style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, display: 'flex', alignItems: 'center', gap: 6, minWidth: 0 }}
                   >
-                    <span style={{ fontSize: 14, fontWeight: 600, color: '#2B2622', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                    <span style={{ fontSize: 14, fontWeight: 600, color: colors.ink, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                       {day.label}
                     </span>
-                    <Pencil size={12} style={{ color: '#C8B8A8', flexShrink: 0 }} />
+                    <Pencil size={12} style={{ color: colors['text-faint'], flexShrink: 0 }} />
                   </button>
                 )}
               </div>
 
               <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
                 {day.items.length > 0 && (
-                  <span style={{ fontSize: 12, color: '#B0917A' }}>
+                  <span style={{ fontSize: 12, color: colors['text-muted'] }}>
                     {day.items.length} {day.items.length === 1 ? 'atividade' : 'atividades'}
                   </span>
                 )}
                 <button
                   onClick={() => deleteDay(day.id)}
-                  style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#D4C4B0', padding: '4px', display: 'flex', alignItems: 'center', borderRadius: 6 }}
+                  style={{ background: 'none', border: 'none', cursor: 'pointer', color: colors['border-muted'], padding: '4px', display: 'flex', alignItems: 'center', borderRadius: 6 }}
                   title="Remover dia"
                 >
                   <Trash2 size={14} />
@@ -300,18 +301,18 @@ export default function ItinerarySection({ destinationId }: { destinationId: str
                       </div>
 
                       {item.time && (
-                        <span style={{ fontSize: 12, fontWeight: 600, color: '#8A8178', minWidth: 44, flexShrink: 0 }}>
+                        <span style={{ fontSize: 12, fontWeight: 600, color: colors['text-soft'], minWidth: 44, flexShrink: 0 }}>
                           {item.time}
                         </span>
                       )}
 
-                      <span style={{ flex: 1, fontSize: 14, color: '#2B2622', fontWeight: 500, minWidth: 0 }}>
+                      <span style={{ flex: 1, fontSize: 14, color: colors.ink, fontWeight: 500, minWidth: 0 }}>
                         {item.title}
                       </span>
 
                       <button
                         onClick={() => deleteItem(day.id, item.id)}
-                        style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#D4C4B0', padding: '4px', flexShrink: 0, display: 'flex', alignItems: 'center', borderRadius: 6 }}
+                        style={{ background: 'none', border: 'none', cursor: 'pointer', color: colors['border-muted'], padding: '4px', flexShrink: 0, display: 'flex', alignItems: 'center', borderRadius: 6 }}
                       >
                         <Trash2 size={13} />
                       </button>
@@ -326,7 +327,7 @@ export default function ItinerarySection({ destinationId }: { destinationId: str
               {addingItem === day.id ? (
                 <div
                   style={{
-                    background: '#FBF7EF',
+                    background: colors.paper,
                     border: '1.5px solid rgba(232,113,76,.25)',
                     borderRadius: 12,
                     padding: '12px 14px',
@@ -341,14 +342,14 @@ export default function ItinerarySection({ destinationId }: { destinationId: str
                         title={c.label}
                         style={{
                           width: 32, height: 32, borderRadius: 8, border: 'none', cursor: 'pointer',
-                          background: newCat === c.key ? c.color + '20' : '#F1E9DC',
+                          background: newCat === c.key ? c.color + '20' : colors['tab-bg'],
                           display: 'flex', alignItems: 'center', justifyContent: 'center',
                           outline: newCat === c.key ? `2px solid ${c.color}` : 'none',
                           outlineOffset: 1,
                           transition: 'all .12s',
                         }}
                       >
-                        <c.Icon size={15} style={{ color: newCat === c.key ? c.color : '#B0917A' }} />
+                        <c.Icon size={15} style={{ color: newCat === c.key ? c.color : colors['text-muted'] }} />
                       </button>
                     ))}
                   </div>
@@ -362,8 +363,8 @@ export default function ItinerarySection({ destinationId }: { destinationId: str
                       placeholder="09:00"
                       style={{
                         width: 68, padding: '7px 10px', borderRadius: 9,
-                        border: '1.5px solid #EFE6D7', background: '#fff',
-                        fontSize: 13, color: '#2B2622', fontFamily: 'inherit',
+                        border: `1.5px solid ${colors.border}`, background: '#fff',
+                        fontSize: 13, color: colors.ink, fontFamily: 'inherit',
                       }}
                     />
                     <input
@@ -378,15 +379,15 @@ export default function ItinerarySection({ destinationId }: { destinationId: str
                       placeholder="Nome da atividade..."
                       style={{
                         flex: 1, padding: '7px 11px', borderRadius: 9,
-                        border: '1.5px solid #EFE6D7', background: '#fff',
-                        fontSize: 13, color: '#2B2622', fontFamily: 'inherit',
+                        border: `1.5px solid ${colors.border}`, background: '#fff',
+                        fontSize: 13, color: colors.ink, fontFamily: 'inherit',
                       }}
                     />
                     <button
                       onClick={() => addItem(day.id)}
                       style={{
                         padding: '7px 12px', borderRadius: 9, border: 'none',
-                        background: '#E8714C', color: '#fff', cursor: 'pointer',
+                        background: colors.coral, color: '#fff', cursor: 'pointer',
                         display: 'flex', alignItems: 'center', flexShrink: 0,
                       }}
                     >
@@ -396,7 +397,7 @@ export default function ItinerarySection({ destinationId }: { destinationId: str
 
                   <button
                     onClick={closeAdd}
-                    style={{ marginTop: 8, fontSize: 12, color: '#B0917A', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+                    style={{ marginTop: 8, fontSize: 12, color: colors['text-muted'], background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
                   >
                     cancelar
                   </button>
@@ -406,9 +407,9 @@ export default function ItinerarySection({ destinationId }: { destinationId: str
                   onClick={() => openAdd(day.id)}
                   style={{
                     display: 'flex', alignItems: 'center', gap: 6,
-                    background: 'none', border: '1.5px dashed #EBE1D2', borderRadius: 9,
+                    background: 'none', border: `1.5px dashed ${colors['border-alt']}`, borderRadius: 9,
                     padding: '7px 14px', cursor: 'pointer',
-                    fontSize: 13, color: '#B0917A', fontWeight: 500,
+                    fontSize: 13, color: colors['text-muted'], fontWeight: 500,
                     width: '100%',
                     transition: 'border-color .12s',
                   }}

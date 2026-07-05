@@ -4,7 +4,8 @@ import { useEffect, useRef, useState } from 'react'
 import { useApp } from '@/contexts/AppContext'
 import DestinationCard from '@/components/DestinationCard'
 import type { StatusFilter, DestinationStatus } from '@/lib/types'
-import { STATUS_COLORS, SEASONS } from '@/lib/types'
+import { STATUS_COLORS, STATUS_BG, SEASONS } from '@/lib/types'
+import { colors } from '@/lib/colors'
 import { PlusCircle, MapPin, X } from 'lucide-react'
 
 const FILTERS: { key: StatusFilter; label: string }[] = [
@@ -92,11 +93,11 @@ export default function Dashboard() {
           letterSpacing: '-0.03em',
           lineHeight: 1.1,
           marginBottom: 32,
-          color: '#2B2622',
+          color: colors.ink,
         }}
       >
         Oi, {firstName}.{' '}
-        <span style={{ color: '#E8714C' }}>pra onde a gente vai?</span>
+        <span style={{ color: colors.coral }}>pra onde a gente vai?</span>
       </h1>
 
       {/* Stats */}
@@ -108,17 +109,17 @@ export default function Dashboard() {
           marginBottom: 28,
         }}
       >
-        <StatCard value={totalCount} label="destinos" color="#2B2622" textColor="#fff" bg="#2B2622" />
-        <StatCard value={dreamCount} label="sonhos" color="#E8B23C" textColor="#2B2622" bg="#FBF0D6" />
-        <StatCard value={planCount} label="planejando" color="#2FA39A" textColor="#2B2622" bg="#D9F0ED" />
-        <StatCard value={visitCount} label="já fui" color="#7FA86B" textColor="#fff" bg="#2B2622" dark />
+        <StatCard value={totalCount} label="destinos" color={colors.ink} textColor="#fff" bg={colors.ink} />
+        <StatCard value={dreamCount} label="sonhos" color={STATUS_COLORS.sonho} textColor={colors.ink} bg={STATUS_BG.sonho} />
+        <StatCard value={planCount} label="planejando" color={STATUS_COLORS.planejando} textColor={colors.ink} bg={STATUS_BG.planejando} />
+        <StatCard value={visitCount} label="já fui" color={STATUS_COLORS.jafui} textColor="#fff" bg={colors.ink} dark />
       </div>
 
       {/* Category filters */}
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 16, alignItems: 'center' }}>
         {FILTERS.map(f => {
           const active = categoryFilter === f.key
-          const color = f.key === 'todos' ? '#2B2622' : STATUS_COLORS[f.key as DestinationStatus]
+          const color = f.key === 'todos' ? colors.ink : STATUS_COLORS[f.key as DestinationStatus]
           const count = getCategoryCount(f.key)
           return (
             <button
@@ -127,9 +128,9 @@ export default function Dashboard() {
               style={{
                 display: 'flex', alignItems: 'center', gap: 6,
                 padding: '6px 14px', borderRadius: 30,
-                border: `1.5px solid ${active ? color : '#EFE6D7'}`,
+                border: `1.5px solid ${active ? color : colors.border}`,
                 background: active ? color : '#fff',
-                color: active ? (f.key === 'todos' ? '#fff' : '#2B2622') : '#8A8178',
+                color: active ? (f.key === 'todos' ? '#fff' : colors.ink) : colors['text-soft'],
                 fontSize: 13, fontWeight: 600, cursor: 'pointer',
                 transition: 'all .15s',
               }}
@@ -138,9 +139,9 @@ export default function Dashboard() {
               <span
                 style={{
                   fontSize: 11, fontWeight: 700,
-                  background: active ? 'rgba(255,255,255,.25)' : '#EFE6D7',
+                  background: active ? 'rgba(255,255,255,.25)' : colors.border,
                   borderRadius: 10, padding: '1px 6px',
-                  color: active ? (f.key === 'todos' ? '#fff' : '#2B2622') : '#8A8178',
+                  color: active ? (f.key === 'todos' ? '#fff' : colors.ink) : colors['text-soft'],
                 }}
               >
                 {count}
@@ -155,8 +156,8 @@ export default function Dashboard() {
             style={{
               display: 'flex', alignItems: 'center', gap: 5,
               padding: '6px 12px', borderRadius: 30,
-              border: '1.5px solid #EFE6D7', background: '#FBF7EF',
-              color: '#8A8178', fontSize: 12, fontWeight: 600, cursor: 'pointer',
+              border: `1.5px solid ${colors.border}`, background: colors.paper,
+              color: colors['text-soft'], fontSize: 12, fontWeight: 600, cursor: 'pointer',
               marginLeft: 'auto',
             }}
           >
@@ -169,7 +170,7 @@ export default function Dashboard() {
       {/* Season + budget filters */}
       <div
         style={{
-          background: '#fff', border: '1px solid #EFE6D7', borderRadius: 16,
+          background: '#fff', border: `1px solid ${colors.border}`, borderRadius: 16,
           padding: '16px 20px', marginBottom: 24,
           display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 16,
         }}
@@ -181,9 +182,9 @@ export default function Dashboard() {
               onClick={() => dispatch({ type: 'SET_SEASON_FILTER', payload: s })}
               style={{
                 padding: '5px 12px', borderRadius: 30,
-                border: `1.5px solid ${seasonFilter === s ? '#2B2622' : '#EFE6D7'}`,
-                background: seasonFilter === s ? '#2B2622' : 'transparent',
-                color: seasonFilter === s ? '#fff' : '#8A8178',
+                border: `1.5px solid ${seasonFilter === s ? colors.ink : colors.border}`,
+                background: seasonFilter === s ? colors.ink : 'transparent',
+                color: seasonFilter === s ? '#fff' : colors['text-soft'],
                 fontSize: 12, fontWeight: 600, cursor: 'pointer',
                 transition: 'all .15s',
               }}
@@ -194,14 +195,14 @@ export default function Dashboard() {
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginLeft: 'auto' }}>
-          <span style={{ fontSize: 13, color: '#8A8178', whiteSpace: 'nowrap' }}>
+          <span style={{ fontSize: 13, color: colors['text-soft'], whiteSpace: 'nowrap' }}>
             {budgetMax >= 25000 ? 'Qualquer orçamento' : `Até R$ ${budgetMax.toLocaleString('pt-BR')}`}
           </span>
           <input
             type="range" min={2000} max={25000} step={500}
             value={budgetMax}
             onChange={e => dispatch({ type: 'SET_BUDGET_MAX', payload: Number(e.target.value) })}
-            style={{ accentColor: '#E8714C', width: 120 }}
+            style={{ accentColor: colors.coral, width: 120 }}
           />
         </div>
       </div>
@@ -219,11 +220,11 @@ export default function Dashboard() {
         </div>
       ) : filtered.length === 0 ? (
         <div
-          style={{ textAlign: 'center', padding: '80px 20px', color: '#8A8178' }}
+          style={{ textAlign: 'center', padding: '80px 20px', color: colors['text-soft'] }}
           className="animate-bora-fade"
         >
-          <MapPin size={40} style={{ color: '#EBE1D2', margin: '0 auto 16px' }} />
-          <p style={{ fontSize: 18, fontWeight: 600, marginBottom: 8, color: '#2B2622' }}>
+          <MapPin size={40} style={{ color: colors['border-alt'], margin: '0 auto 16px' }} />
+          <p style={{ fontSize: 18, fontWeight: 600, marginBottom: 8, color: colors.ink }}>
             {destinations.length === 0 ? 'Nenhum destino ainda' : 'Nenhum destino com esses filtros'}
           </p>
           <p style={{ fontSize: 14 }}>
@@ -236,7 +237,7 @@ export default function Dashboard() {
               onClick={() => navigate('add')}
               style={{
                 marginTop: 20, display: 'inline-flex', alignItems: 'center', gap: 8,
-                background: '#E8714C', color: '#fff', border: 'none',
+                background: colors.coral, color: '#fff', border: 'none',
                 borderRadius: 12, padding: '10px 20px', fontSize: 14, fontWeight: 600,
                 cursor: 'pointer', boxShadow: '0 8px 18px -8px rgba(232,113,76,.8)',
               }}
@@ -249,7 +250,7 @@ export default function Dashboard() {
               onClick={clearFilters}
               style={{
                 marginTop: 16, display: 'inline-flex', alignItems: 'center', gap: 6,
-                background: '#fff', color: '#2B2622', border: '1.5px solid #EFE6D7',
+                background: '#fff', color: colors.ink, border: `1.5px solid ${colors.border}`,
                 borderRadius: 12, padding: '9px 18px', fontSize: 13, fontWeight: 600,
                 cursor: 'pointer',
               }}
@@ -285,7 +286,7 @@ const shimmer: React.CSSProperties = {
 
 function SkeletonCard() {
   return (
-    <div style={{ background: '#fff', border: '1px solid #EFE6D7', borderRadius: 20, overflow: 'hidden' }}>
+    <div style={{ background: '#fff', border: `1px solid ${colors.border}`, borderRadius: 20, overflow: 'hidden' }}>
       {/* Cover */}
       <div style={{ ...shimmer, height: 158, borderRadius: 0 }} />
       {/* Body */}
@@ -326,7 +327,7 @@ function StatCard({
       style={{
         background: bg, borderRadius: 16,
         padding: '16px 20px',
-        border: dark ? 'none' : '1px solid #EFE6D7',
+        border: dark ? 'none' : `1px solid ${colors.border}`,
       }}
     >
       <div

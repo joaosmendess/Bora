@@ -4,6 +4,7 @@ import { useRef, useEffect } from 'react'
 import { useApp } from '@/contexts/AppContext'
 import type { Tab } from '@/lib/types'
 import { ChevronDown, Plus, Users, LogOut, Check } from 'lucide-react'
+import { colors } from '@/lib/colors'
 
 const TABS: { key: Tab; label: string }[] = [
   { key: 'lista', label: 'Lista' },
@@ -50,7 +51,7 @@ export default function Navbar() {
         position: 'sticky', top: 0, zIndex: 50,
         background: 'rgba(251,247,239,.82)',
         backdropFilter: 'blur(10px)',
-        borderBottom: '1px solid #EBE1D2',
+        borderBottom: `1px solid ${colors['border-alt']}`,
       }}
     >
       <div
@@ -66,11 +67,11 @@ export default function Navbar() {
           style={{
             fontFamily: 'var(--font-bricolage), sans-serif',
             fontWeight: 800, fontSize: 25,
-            color: '#2B2622', letterSpacing: '-0.03em',
+            color: colors.ink, letterSpacing: '-0.03em',
             background: 'none', border: 'none', cursor: 'pointer', padding: 0,
           }}
         >
-          bora<span style={{ color: '#E8714C' }}>.</span>
+          bora<span style={{ color: colors.coral }}>.</span>
         </button>
 
         {/* Space selector */}
@@ -79,16 +80,16 @@ export default function Navbar() {
             onClick={() => dispatch({ type: 'SET_SPACE_MENU', payload: !spaceMenuOpen })}
             style={{
               display: 'flex', alignItems: 'center', gap: 8,
-              background: '#fff', border: '1.5px solid #EBE1D2', borderRadius: 12,
+              background: '#fff', border: `1.5px solid ${colors['border-alt']}`, borderRadius: 12,
               padding: '7px 12px', cursor: 'pointer',
-              fontSize: 14, fontWeight: 600, color: '#2B2622',
+              fontSize: 14, fontWeight: 600, color: colors.ink,
             }}
           >
             {/* Space icon */}
             <div
               style={{
                 width: 24, height: 24, borderRadius: 6,
-                background: currentSpace?.color || '#E8714C',
+                background: currentSpace?.color || colors.coral,
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 flexShrink: 0,
               }}
@@ -97,24 +98,24 @@ export default function Navbar() {
                 <path d="M3 11l19 -9 -9 19 -2 -8 -8 -2z" />
               </svg>
             </div>
-            <span style={{ maxWidth: 120, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+            <span style={{ maxWidth: 'clamp(70px, 30vw, 120px)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
               {currentSpace?.name || 'Selecionar espaço'}
             </span>
-            <span style={{ fontSize: 12, color: '#8A8178' }}>
+            <span className="hidden sm:inline" style={{ fontSize: 12, color: colors['text-soft'] }}>
               {members.length > 0 ? `${members.length} membro${members.length !== 1 ? 's' : ''}` : ''}
             </span>
-            <ChevronDown size={14} style={{ color: '#8A8178', flexShrink: 0 }} />
+            <ChevronDown size={14} style={{ color: colors['text-soft'], flexShrink: 0 }} />
           </button>
 
           {/* Dropdown */}
           {spaceMenuOpen && (
             <div
-              className="animate-bora-pop"
+              className="animate-bora-pop w-[280px] max-w-[calc(100vw-32px)]"
               style={{
                 position: 'absolute', top: 'calc(100% + 8px)', left: 0,
-                width: 280, background: '#fff', borderRadius: 16,
+                background: '#fff', borderRadius: 16,
                 boxShadow: '0 24px 50px -24px rgba(43,38,34,.5)',
-                border: '1px solid #EFE6D7',
+                border: `1px solid ${colors.border}`,
                 overflow: 'hidden', zIndex: 100,
               }}
             >
@@ -126,7 +127,7 @@ export default function Navbar() {
                     style={{
                       width: '100%', display: 'flex', alignItems: 'center', gap: 10,
                       padding: '10px 16px', background: 'none', border: 'none', cursor: 'pointer',
-                      fontSize: 14, fontWeight: 500, color: '#2B2622',
+                      fontSize: 14, fontWeight: 500, color: colors.ink,
                       textAlign: 'left',
                     }}
                     className="hover:bg-paper"
@@ -135,21 +136,21 @@ export default function Navbar() {
                       <svg width="10" height="10" viewBox="0 0 24 24" fill="white"><path d="M3 11l19 -9 -9 19 -2 -8 -8 -2z" /></svg>
                     </div>
                     <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{s.name}</span>
-                    {currentSpace?.id === s.id && <Check size={13} style={{ marginLeft: 'auto', color: '#E8714C', flexShrink: 0 }} />}
+                    {currentSpace?.id === s.id && <Check size={13} style={{ marginLeft: 'auto', color: colors.coral, flexShrink: 0 }} />}
                   </button>
                 ))}
               </div>
-              <div style={{ borderTop: '1px solid #EFE6D7', padding: '8px 0' }}>
+              <div style={{ borderTop: `1px solid ${colors.border}`, padding: '8px 0' }}>
                 <button
                   onClick={() => { dispatch({ type: 'SET_MODAL', payload: 'create-group' }); dispatch({ type: 'SET_SPACE_MENU', payload: false }) }}
                   style={{
                     width: '100%', display: 'flex', alignItems: 'center', gap: 10,
                     padding: '10px 16px', background: 'none', border: 'none', cursor: 'pointer',
-                    fontSize: 14, fontWeight: 500, color: '#2B2622', textAlign: 'left',
+                    fontSize: 14, fontWeight: 500, color: colors.ink, textAlign: 'left',
                   }}
                   className="hover:bg-paper"
                 >
-                  <Plus size={16} style={{ color: '#8A8178' }} />
+                  <Plus size={16} style={{ color: colors['text-soft'] }} />
                   Criar um grupo
                 </button>
                 <button
@@ -157,11 +158,11 @@ export default function Navbar() {
                   style={{
                     width: '100%', display: 'flex', alignItems: 'center', gap: 10,
                     padding: '10px 16px', background: 'none', border: 'none', cursor: 'pointer',
-                    fontSize: 14, fontWeight: 500, color: '#2B2622', textAlign: 'left',
+                    fontSize: 14, fontWeight: 500, color: colors.ink, textAlign: 'left',
                   }}
                   className="hover:bg-paper"
                 >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8A8178" strokeWidth="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={colors['text-soft']} strokeWidth="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
                   Entrar com um link
                 </button>
               </div>
@@ -169,10 +170,11 @@ export default function Navbar() {
           )}
         </div>
 
-        {/* Tabs */}
+        {/* Tabs (desktop only — mobile uses the bottom tab bar) */}
         <nav
+          className="hidden md:flex"
           style={{
-            display: 'flex', background: '#F1E9DC', borderRadius: 12,
+            background: colors['tab-bg'], borderRadius: 12,
             padding: 4, gap: 0, flexShrink: 0,
           }}
         >
@@ -184,7 +186,7 @@ export default function Navbar() {
                 padding: '6px 14px', borderRadius: 8, border: 'none', cursor: 'pointer',
                 fontSize: 14, fontWeight: 500,
                 background: activeTab === tab.key ? '#fff' : 'transparent',
-                color: activeTab === tab.key ? '#2B2622' : '#8A8178',
+                color: activeTab === tab.key ? colors.ink : colors['text-soft'],
                 boxShadow: activeTab === tab.key ? '0 1px 3px rgba(43,38,34,.08)' : 'none',
                 transition: 'all .15s',
               }}
@@ -205,7 +207,7 @@ export default function Navbar() {
         )}
         {members.length === 0 && user && (
           <button onClick={() => navigate('group')} style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'none', border: 'none', cursor: 'pointer' }}>
-            <Users size={16} style={{ color: '#8A8178' }} />
+            <Users size={16} style={{ color: colors['text-soft'] }} />
           </button>
         )}
 
@@ -214,24 +216,24 @@ export default function Navbar() {
           <button
             onClick={signOut}
             title="Sair da conta"
-            style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'none', border: 'none', cursor: 'pointer', color: '#8A8178', padding: '10px', borderRadius: 10, minWidth: 40, minHeight: 40 }}
+            style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'none', border: 'none', cursor: 'pointer', color: colors['text-soft'], padding: '10px', borderRadius: 10, minWidth: 40, minHeight: 40 }}
           >
             <LogOut size={16} />
           </button>
         )}
 
-        {/* New destination button */}
+        {/* New destination button (desktop only — mobile uses the bottom tab bar's + button) */}
         <button
           onClick={() => navigate('add')}
           style={{
-            display: 'flex', alignItems: 'center', gap: 6,
-            background: '#E8714C', color: '#fff',
+            alignItems: 'center', gap: 6,
+            background: colors.coral, color: '#fff',
             border: 'none', borderRadius: 12, padding: '8px 16px',
             fontSize: 14, fontWeight: 600, cursor: 'pointer',
             boxShadow: '0 8px 18px -8px rgba(232,113,76,.8)',
             transition: 'all .15s',
           }}
-          className="hover:opacity-90 active:scale-95"
+          className="hidden md:flex hover:opacity-90 active:scale-95"
         >
           <Plus size={16} />
           Novo destino
@@ -246,14 +248,14 @@ function AvatarStack({ members, size = 32 }: { members: { profile?: { name?: str
     <div style={{ display: 'flex', alignItems: 'center' }}>
       {members.map((m, i) => {
         const name = m.profile?.name || '?'
-        const color = m.profile?.avatar_color || '#8A8178'
+        const color = m.profile?.avatar_color || colors['text-soft']
         return (
           <div
             key={i}
             style={{
               width: size, height: size,
               borderRadius: '50%', background: color,
-              border: '2.5px solid #FBF7EF',
+              border: `2.5px solid ${colors.paper}`,
               marginLeft: i === 0 ? 0 : -8,
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               fontSize: size * 0.38, fontWeight: 700, color: '#fff',

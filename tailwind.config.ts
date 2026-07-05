@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss'
+import { colors } from './lib/colors'
 
 const config: Config = {
   content: [
@@ -8,26 +9,7 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      colors: {
-        coral: '#E8714C',
-        'coral-light': '#E8924C',
-        golden: '#E8B23C',
-        'golden-text': '#D99A1F',
-        teal: '#2FA39A',
-        green: '#7FA86B',
-        ink: '#2B2622',
-        'text-soft': '#8A8178',
-        'text-muted': '#B0917A',
-        paper: '#FBF7EF',
-        dot: '#E6DCC9',
-        border: '#EFE6D7',
-        'border-alt': '#EBE1D2',
-        'input-bg': '#FBF9F4',
-        'status-sonho': '#FBF0D6',
-        'status-embreve': '#FBE3DA',
-        'status-planejando': '#D9F0ED',
-        'status-jafui': '#E6EFDF',
-      },
+      colors: { ...colors },
       fontFamily: {
         display: ['var(--font-bricolage)', 'sans-serif'],
         body: ['var(--font-jakarta)', 'sans-serif'],

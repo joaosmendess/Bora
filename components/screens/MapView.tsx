@@ -2,6 +2,7 @@
 
 import dynamic from 'next/dynamic'
 import { useApp } from '@/contexts/AppContext'
+import { colors } from '@/lib/colors'
 
 const MaplibreMap = dynamic(() => import('./MaplibreMapInner'), {
   ssr: false,
@@ -15,7 +16,7 @@ const MaplibreMap = dynamic(() => import('./MaplibreMapInner'), {
         marginBottom: 12,
       }}
     >
-      <span style={{ fontSize: 13, color: '#8A8178', fontWeight: 500 }}>Carregando mapa…</span>
+      <span style={{ fontSize: 13, color: colors['text-soft'], fontWeight: 500 }}>Carregando mapa…</span>
     </div>
   ),
 })
@@ -37,13 +38,13 @@ export default function MapView() {
           style={{
             fontFamily: 'var(--font-bricolage), sans-serif',
             fontWeight: 800, fontSize: 'clamp(24px,3.5vw,36px)',
-            letterSpacing: '-0.03em', color: '#2B2622',
+            letterSpacing: '-0.03em', color: colors.ink,
           }}
         >
           Seus destinos no mapa
         </h2>
         {destinations.length > 0 && (
-          <span style={{ fontSize: 14, color: '#8A8178', fontWeight: 500 }}>
+          <span style={{ fontSize: 14, color: colors['text-soft'], fontWeight: 500 }}>
             {destinations.length} destino{destinations.length !== 1 ? 's' : ''}
           </span>
         )}
